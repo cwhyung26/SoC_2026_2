@@ -353,14 +353,13 @@ Windows 탐색기 → 내 PC → 설치할 드라이브 우클릭 → 속성 →
 Windows 시작 메뉴 → "Vivado 2023.2" 검색 → 실행
 ```
 
-Vivado가 열리면 시작 화면(Quick Start)의 왼쪽 하단이나, 메뉴 **Help → About Vivado**에서 버전을 확인한다.
+Vivado가 열리면 아래와 같은 시작 화면(Quick Start)이 나타난다. 오류 없이 이 화면이 뜨면 정상 실행이다. 버전은 메뉴 **Help → About Vivado**에서 확인한다.
 
 ```
 확인할 값: Vivado v2023.2 (64-bit)
 ```
 
-📷 **캡처 필요 ⑦** — Vivado About 창에 버전이 표시된 화면
-![Vivado About 창 — 버전 확인](img/w1s1_07_vivado_about.png)
+![Vivado 2023.2 시작 화면 — 정상 실행 시 나타나는 Quick Start 화면](img/w1s1_07_vivado_start.png)
 
 ### 라이선스 확인
 
@@ -382,14 +381,13 @@ Get License → "Get Free ML Standard License" (또는 "Obtain License") 선택
 Windows 시작 메뉴 → "Vitis 2023.2" 검색 → 실행
 ```
 
-Vitis가 처음 열리면 **Workspace Launcher** 창이 나타난다. 이 창이 뜨는 것 자체가 정상 설치의 첫 신호다. `Help → About` 메뉴에서 버전을 다시 확인한다.
+Vitis가 처음 열리면 워크스페이스를 아직 열지 않았다는 안내와 함께 **Vitis Unified IDE의 Welcome 화면**이 나타난다. 이 화면이 뜨는 것 자체가 정상 설치의 첫 신호다. 창 제목이 **Vitis Unified IDE 2023.2**인지 확인한다.
 
 ```
-확인할 값: Vitis v2023.2
+확인할 값: Vitis Unified IDE 2023.2
 ```
 
-📷 **캡처 필요 ⑧** — Vitis Workspace Launcher 창
-![Vitis Workspace Launcher 창](img/w1s1_08_vitis_launcher.png)
+![Vitis Unified IDE 2023.2 Welcome 화면 — 정상 실행 시 나타나는 시작 화면](img/w1s1_08_vitis_start.png)
 
 ### 정상 설치 판정 기준
 
@@ -397,7 +395,7 @@ Vitis가 처음 열리면 **Workspace Launcher** 창이 나타난다. 이 창이
 |------|------|------|
 | Vivado 실행 | 오류 없이 시작 화면이 뜬다 | 실행 즉시 오류 창이 뜨거나 멈춘다 |
 | Vivado 버전 | `2023.2` 표시 | 다른 버전 또는 표시 없음 |
-| Vitis 실행 | Workspace Launcher 창이 뜬다 | 실행되지 않거나 오류 발생 |
+| Vitis 실행 | Vitis Unified IDE Welcome 화면이 뜬다 | 실행되지 않거나 오류 발생 |
 | 설치 로그 | `[TODO: 설치 로그 확인 경로 — 보통 %AppData%\Xilinx\...]` | 오류(Error) 메시지 다수 |
 
 > **문제가 있으면:** 재부팅 후 다시 실행해 본다. 그래도 안 되면 설치 프로그램을 다시 실행해 **Uninstall** 후 처음부터 다시 설치한다. 다음 시간(W1_S2)까지 반드시 해결해서 온다.
