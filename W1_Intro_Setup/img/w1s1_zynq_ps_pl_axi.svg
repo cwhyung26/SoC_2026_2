@@ -1,0 +1,49 @@
+<svg width="680" height="264" viewBox="0 0 680 264" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="8" refY="5"
+        markerWidth="6" markerHeight="6" orient="auto">
+  <path d="M2 1L8 5L2 9" fill="none" stroke="#555"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<style>
+.bg {fill:#e1f5ee;stroke:#1d9e75;stroke-width:1.2;}
+.ps {fill:#eeedfe;stroke:#7f77dd;stroke-width:0.9;}
+.pl {fill:#e6f1fb;stroke:#378add;stroke-width:0.9;}
+.t  {font:600 13px sans-serif;fill:#1a1a1a;
+     text-anchor:middle;dominant-baseline:central;}
+.s  {font:400 11px sans-serif;fill:#333;
+     text-anchor:middle;dominant-baseline:central;}
+.hi {font:500 11px sans-serif;fill:#c0392b;
+     text-anchor:middle;dominant-baseline:central;}
+.al {stroke:#666;stroke-width:2;fill:none;
+     marker-end:url(#arr);marker-start:url(#arr);}
+</style>
+</defs>
+
+<rect x="20" y="12" width="640" height="240" rx="16" class="bg"/>
+<text x="340" y="36" class="t" style="font-size:14px">Zynq-7000 SoC (Cora Z7-07S · xc7z007s)</text>
+
+<rect x="44" y="56" width="258" height="176" rx="10" class="ps"/>
+<text x="173" y="80"  class="t">PS — Processing System</text>
+<text x="173" y="101" class="s">ARM Cortex-A9 (Single-core)</text>
+<text x="173" y="120" class="s">DDR 메모리 컨트롤러</text>
+<text x="173" y="139" class="s">USB / UART / I²C / SPI</text>
+<text x="173" y="158" class="s">GPIO / SD카드</text>
+<text x="173" y="177" class="s">Standalone(baremetal) C 응용</text>
+<text x="173" y="198" class="hi">← Vitis C 코드 실행 영역</text>
+<text x="173" y="217" class="s" style="fill:#7f77dd;font-style:italic">고정된 구조 (Fixed Architecture)</text>
+
+<rect x="378" y="56" width="258" height="176" rx="10" class="pl"/>
+<text x="507" y="80"  class="t">PL — Programmable Logic</text>
+<text x="507" y="101" class="s">Artix-7 기반 FPGA Fabric</text>
+<text x="507" y="120" class="s">Verilog로 사용자 회로 설계</text>
+<text x="507" y="139" class="s">Custom IP / 표준 IP 배치</text>
+<text x="507" y="158" class="s">LED · 스위치 · PMOD 연결</text>
+<text x="507" y="177" class="s">DE0/Quartus에서 다루던 FPGA와 동일한 역할</text>
+<text x="507" y="198" class="hi">← Vivado Block Design 영역</text>
+<text x="507" y="217" class="s" style="fill:#378add;font-style:italic">유연한 설계 공간 (Flexible)</text>
+
+<line x1="302" y1="144" x2="378" y2="144" class="al"/>
+<text x="340" y="130" class="s" style="fill:#555">AXI Bus</text>
+<text x="340" y="160" style="font:400 10px sans-serif;fill:#777;text-anchor:middle;dominant-baseline:central">레지스터 읽기/쓰기</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Vitis_AI_platform_2026/ZynqSoc_Vitis"
+		},
+		{
+			"path": "../Vitis_AI_platform_2026/ZynqSoc_Vitis2023"
+		},
+		{
+			"path": "../../../../../../Dropbox/2_Lecture/2026_2/Dbox_SoC2026"
+		}
+	],
+	"settings": {}
+}
