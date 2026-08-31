@@ -25,12 +25,15 @@
 
 1. 웹 브라우저에서 `github.com` 에 접속한다.
 2. 우측 상단 **Sign up**을 클릭한다.
-3. 이메일 주소, 비밀번호, 사용자명(Username)을 입력한다.
-   - 사용자명은 이후 계속 쓰이므로 알아보기 쉬운 이름으로 정한다 (예: 학번을 포함한 영문 조합).
-4. 이메일 인증(확인 코드 입력)을 완료하면 계정 생성이 끝난다.
+3. 회원가입 화면에서 다음 항목을 입력한다.
+   - **Email** — 본인이 접근 가능한 이메일 주소.
+   - **Password** — 15자 이상, 또는 숫자와 소문자를 포함한 8자 이상.
+   - **Username** — 이후 저장소 주소·계정 표시에 계속 쓰이므로 알아보기 쉬운 이름으로 정한다 (예: 학번을 포함한 영문 조합).
+   - **Your Country/Region** — `Korea, South` 선택.
+   - (구글·애플 계정이 있으면 상단의 **Continue with Google / Continue with Apple**로 대신 가입해도 된다.)
+4. **Create account**를 클릭한 뒤 이메일 인증(확인 코드 입력)을 완료하면 계정 생성이 끝난다.
 
-📷 **캡처 필요 ⑨** — GitHub 회원가입 화면
-![GitHub 회원가입 화면](img/w1s1_09_github_signup.png)
+![GitHub 회원가입 화면 — Email·Password·Username 입력 후 Create account](img/w1s1_09_github_signup.png)
 
 ### 강의 저장소 접근 방법
 
