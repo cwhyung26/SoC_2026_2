@@ -1,21 +1,21 @@
 `timescale 1ns / 1ps
 
-// W1_S2 Vivado 데모용 예제. 클럭을 분주해 4비트 카운터를 1초 간격으로 증가시킨다.
-// 지난 학기 DE0/Quartus에서 만든 클럭 분주기 + 카운터와 동일한 구조다.
+// W1_S2 Vivado demo. Divides the clock and increments a 4-bit counter once per second.
+// Same structure as the clock divider + counter built last semester in DE0/Quartus.
 module led_counter_demo #(
-    parameter CLK_FREQ_HZ = 125_000_000  // Cora Z7-07S PL 외부 클럭(추정치, 2주차에 실측값으로 확인)
+    parameter CLK_FREQ_HZ = 125_000_000  // Cora Z7-07S PL external clock (assumed; confirm measured value in week 2)
 ) (
-    input  wire       clk,     // 보드 외부 클럭 입력
-    input  wire       rst_n,   // active-low 리셋 버튼 입력
-    output reg  [3:0] led      // 온보드 LED 4개 출력
+    input  wire       clk,     // board external clock input (Cora Z7-07S: 125 MHz sysclk)
+    input  wire       rst_n,   // active-low reset (mapped to a push-button in the XDC)
+    output reg  [3:0] led      // 4-bit count; on Cora Z7-07S mapped to RGB LED channels (see XDC)
 );
 
-    localparam integer TICK_MAX = CLK_FREQ_HZ - 1; // 1초에 한 번 tick
+    localparam integer TICK_MAX = CLK_FREQ_HZ - 1; // one tick per second
 
     reg [31:0] tick_cnt;
     reg        tick;
 
-    // 1) 클럭 분주 — CLK_FREQ_HZ번마다 한 번 tick을 1클럭 동안 세운다.
+    // 1) Clock divider: raise tick for one clock every CLK_FREQ_HZ clocks.
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             tick_cnt <= 32'd0;
@@ -29,7 +29,7 @@ module led_counter_demo #(
         end
     end
 
-    // 2) tick이 발생할 때마다 4비트 카운터를 증가시켜 LED로 내보낸다.
+    // 2) On every tick, increment the 4-bit counter and drive it onto the LEDs.
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             led <= 4'd0;

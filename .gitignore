@@ -1,0 +1,8 @@
+# Vivado 프로젝트 생성 결과물 (스크립트로 언제든 재생성)
+W1_Intro_Setup/DEMO01/project_demo01/
+*.jou
+*.str
+*.log
+.Xil/
+vivado*.backup.jou
+vivado*.backup.log
