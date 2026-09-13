@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif">
+  <style>
+    .title   { font-size: 20px; font-weight: 700; fill: #1a202c; }
+    .hdr     { font-size: 17px; font-weight: 700; }
+    .sub     { font-size: 12px; font-style: italic; fill: #555; }
+    .lbl     { font-size: 13px; font-weight: 700; fill: #1a202c; }
+    .txt     { font-size: 13px; fill: #1a202c; }
+    .small   { font-size: 12px; fill: #444; }
+    .arrowlbl{ font-size: 12px; font-weight: 700; fill: #1a202c; }
+  </style>
+
+  <rect x="1" y="1" width="958" height="598" fill="#ffffff"/>
+
+  <!-- outer frame -->
+  <rect x="10" y="10" width="940" height="580" rx="14" fill="#fbfbfb" stroke="#333" stroke-width="2"/>
+  <text x="30" y="42" class="title">Zynq-7000 (xc7z007s)</text>
+
+  <!-- PS box -->
+  <rect x="40" y="65" width="410" height="380" rx="10" fill="#eaf2fb" stroke="#2b6cb0" stroke-width="2"/>
+  <text x="245" y="92" text-anchor="middle" class="hdr" fill="#1e4e79">PS (Processing System)</text>
+  <text x="245" y="110" text-anchor="middle" class="sub">고정된 ARM 기반 컴퓨터</text>
+
+  <!-- APU nested box -->
+  <rect x="60" y="122" width="370" height="145" rx="8" fill="#ffffff" stroke="#2b6cb0" stroke-width="1.5"/>
+  <text x="75" y="145" class="lbl">APU</text>
+  <text x="80" y="168" class="txt">Cortex-A9 (Cora Z7-07S = 1코어)</text>
+  <text x="80" y="191" class="txt">L1/L2 캐시</text>
+  <text x="80" y="214" class="txt">GIC (인터럽트 컨트롤러)</text>
+  <text x="80" y="237" class="txt">Timer / Watchdog</text>
+  <text x="245" y="255" text-anchor="middle" class="small">AMBA 내부 버스로 아래 블록들과 연결</text>
+
+  <!-- PS lower blocks -->
+  <rect x="60" y="280" width="370" height="42" rx="6" fill="#ffffff" stroke="#2b6cb0" stroke-width="1.2"/>
+  <text x="245" y="306" text-anchor="middle" class="txt">메모리 컨트롤러 (DDR3L)</text>
+
+  <rect x="60" y="330" width="370" height="80" rx="6" fill="#ffffff" stroke="#2b6cb0" stroke-width="1.2"/>
+  <text x="245" y="352" text-anchor="middle" class="lbl">페리페럴 컨트롤러</text>
+  <text x="245" y="374" text-anchor="middle" class="txt">UART · I2C · SPI · CAN</text>
+  <text x="245" y="396" text-anchor="middle" class="txt">GigE · USB · SDIO · QSPI</text>
+
+  <!-- PL box -->
+  <rect x="510" y="65" width="410" height="380" rx="10" fill="#fdf1e3" stroke="#c05621" stroke-width="2"/>
+  <text x="715" y="92" text-anchor="middle" class="hdr" fill="#8a4210">PL (Programmable Logic)</text>
+  <text x="715" y="110" text-anchor="middle" class="sub">우리가 설계하는 FPGA 회로</text>
+
+  <rect x="530" y="130" width="370" height="90" rx="8" fill="#ffffff" stroke="#c05621" stroke-width="1.5"/>
+  <text x="715" y="155" text-anchor="middle" class="lbl">1주~2주차에 만든 회로</text>
+  <text x="715" y="178" text-anchor="middle" class="txt">Clocking Wizard, pl_counter,</text>
+  <text x="715" y="199" text-anchor="middle" class="txt">System ILA</text>
+
+  <rect x="530" y="240" width="370" height="90" rx="8" fill="#ffffff" stroke="#c05621" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="715" y="278" text-anchor="middle" class="lbl">이번 주는 비워 둠</text>
+  <text x="715" y="300" text-anchor="middle" class="txt">(PS 블록 하나만)</text>
+
+  <!-- AMBA/AXI connector between PS and PL -->
+  <line x1="450" y1="190" x2="508" y2="190" stroke="#333" stroke-width="2" marker-start="url(#arrowL)" marker-end="url(#arrowR)"/>
+  <text x="479" y="178" text-anchor="middle" class="arrowlbl">AMBA/AXI</text>
+  <text x="479" y="205" text-anchor="middle" class="small">연결</text>
+
+  <!-- bottom arrows: PS -->
+  <line x1="245" y1="445" x2="245" y2="500" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrowDownPS)"/>
+  <text x="260" y="470" class="arrowlbl" fill="#1e4e79">54개 MIO 핀</text>
+  <text x="245" y="525" text-anchor="middle" class="txt">보드의 UART / SD / QSPI / …</text>
+
+  <!-- bottom arrows: PL -->
+  <line x1="715" y1="445" x2="715" y2="500" stroke="#c05621" stroke-width="2" marker-end="url(#arrowDownPL)"/>
+  <text x="730" y="470" class="arrowlbl" fill="#8a4210">PL 패키지 핀들</text>
+  <text x="715" y="525" text-anchor="middle" class="txt">보드의 버튼 · LED · PL 클럭 …</text>
+
+  <text x="480" y="565" text-anchor="middle" class="small">PS는 PL이 텅 비어 있어도 혼자 부팅하고 실행될 수 있다.</text>
+
+  <defs>
+    <marker id="arrowL" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#333"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#333"/>
+    </marker>
+    <marker id="arrowDownPS" markerWidth="10" markerHeight="10" refX="4" refY="8" orient="auto">
+      <path d="M0,0 L8,0 L4,8 Z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="arrowDownPL" markerWidth="10" markerHeight="10" refX="4" refY="8" orient="auto">
+      <path d="M0,0 L8,0 L4,8 Z" fill="#c05621"/>
+    </marker>
+  </defs>
+</svg>

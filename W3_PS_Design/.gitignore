@@ -1,0 +1,6 @@
+# PuTTY installer/binary - distribute via the course Dropbox folder, not git.
+putty/
+
+# Stray duplicate exports (e.g. a HEIC photo saved with a doubled .png.HEIC name).
+*.HEIC
+*.heic
