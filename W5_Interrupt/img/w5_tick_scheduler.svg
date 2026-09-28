@@ -1,0 +1,116 @@
+<svg width="700" height="340" viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="8" refY="5"
+        markerWidth="6" markerHeight="6" orient="auto">
+  <path d="M2 1L8 5L2 9" fill="none" stroke="#555"
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<style>
+.bg  {fill:#ffffff;}
+.tmr {fill:#fdf3d9;stroke:#c9962c;stroke-width:1;}
+.gic {fill:#eeedfe;stroke:#7f77dd;stroke-width:1;}
+.isr {fill:#fbe6ea;stroke:#c0392b;stroke-width:1.2;}
+.job1{fill:#e6f1fb;stroke:#378add;stroke-width:1;}
+.job2{fill:#e1f5ee;stroke:#1d9e75;stroke-width:1;}
+.job3{fill:#f3e6fb;stroke:#8e44ad;stroke-width:1;}
+.al  {stroke:#666;stroke-width:1.6;fill:none;marker-end:url(#arr);}
+.ax  {stroke:#888;stroke-width:1;}
+.gl  {stroke:#e2e2e2;stroke-width:1;}
+.h   {font:700 13px sans-serif;fill:#1a1a1a;text-anchor:start;}
+.t   {font:600 11px sans-serif;fill:#1a1a1a;text-anchor:middle;dominant-baseline:central;}
+.s   {font:400 9.5px sans-serif;fill:#444;text-anchor:middle;dominant-baseline:central;}
+.sl  {font:400 10px sans-serif;fill:#444;text-anchor:start;dominant-baseline:central;}
+.lb  {font:600 10px sans-serif;fill:#1a1a1a;text-anchor:end;dominant-baseline:central;}
+.r   {font:600 10px sans-serif;fill:#c0392b;text-anchor:start;dominant-baseline:central;}
+</style>
+</defs>
+
+<rect class="bg" x="0" y="0" width="700" height="340"/>
+
+<text class="h" x="16" y="24">1 ms tick 하나로 주기가 다른 작업 셋을 돌린다</text>
+
+<!-- tick generation chain -->
+<rect class="tmr" x="16" y="44" width="126" height="46" rx="6"/>
+<text class="t" x="79" y="60">Private Timer</text>
+<text class="s" x="79" y="76">325 MHz, load 324999</text>
+
+<line class="al" x1="142" y1="67" x2="172" y2="67"/>
+<text class="s" x="157" y="55">PPI</text>
+
+<rect class="gic" x="172" y="44" width="74" height="46" rx="6"/>
+<text class="t" x="209" y="60">GIC</text>
+<text class="s" x="209" y="76">→ CPU0</text>
+
+<line class="al" x1="246" y1="67" x2="276" y2="67"/>
+
+<rect class="isr" x="276" y="44" width="122" height="46" rx="6"/>
+<text class="t" x="337" y="60">ISR</text>
+<text class="s" x="337" y="76">TickCount++ 만 한다</text>
+
+<line class="al" x1="398" y1="67" x2="428" y2="67"/>
+
+<rect class="job2" x="428" y="44" width="256" height="46" rx="6"/>
+<text class="t" x="556" y="60">main — 무엇이 &quot;때가 되었나&quot; 판단</text>
+<text class="s" x="556" y="76">(u32)(now - last) &gt;= 주기 ?</text>
+
+<text class="r" x="16" y="108">ISR 안에서는 printf도, LED 출력도 하지 않는다. 1 ms에 한 줄을 출력할 시간조차 없다.</text>
+
+<!-- lanes -->
+<line class="gl" x1="130" y1="185" x2="660" y2="185"/>
+<line class="gl" x1="130" y1="225" x2="660" y2="225"/>
+<line class="gl" x1="130" y1="265" x2="660" y2="265"/>
+
+<text class="lb" x="124" y="185">50 ms · SW→LED</text>
+<text class="lb" x="124" y="225">500 ms · RGB 토글</text>
+<text class="lb" x="124" y="265">1000 ms · 터미널</text>
+
+<!-- 50 ms job marks -->
+<g class="job1">
+<rect x="153" y="177" width="7" height="16" rx="2"/>
+<rect x="180" y="177" width="7" height="16" rx="2"/>
+<rect x="206" y="177" width="7" height="16" rx="2"/>
+<rect x="233" y="177" width="7" height="16" rx="2"/>
+<rect x="259" y="177" width="7" height="16" rx="2"/>
+<rect x="286" y="177" width="7" height="16" rx="2"/>
+<rect x="312" y="177" width="7" height="16" rx="2"/>
+<rect x="339" y="177" width="7" height="16" rx="2"/>
+<rect x="365" y="177" width="7" height="16" rx="2"/>
+<rect x="392" y="177" width="7" height="16" rx="2"/>
+<rect x="418" y="177" width="7" height="16" rx="2"/>
+<rect x="445" y="177" width="7" height="16" rx="2"/>
+<rect x="471" y="177" width="7" height="16" rx="2"/>
+<rect x="498" y="177" width="7" height="16" rx="2"/>
+<rect x="524" y="177" width="7" height="16" rx="2"/>
+<rect x="551" y="177" width="7" height="16" rx="2"/>
+<rect x="577" y="177" width="7" height="16" rx="2"/>
+<rect x="604" y="177" width="7" height="16" rx="2"/>
+<rect x="630" y="177" width="7" height="16" rx="2"/>
+<rect x="657" y="177" width="7" height="16" rx="2"/>
+</g>
+
+<!-- 500 ms job marks -->
+<g class="job2">
+<rect x="392" y="217" width="7" height="16" rx="2"/>
+<rect x="657" y="217" width="7" height="16" rx="2"/>
+</g>
+
+<!-- 1000 ms job marks -->
+<g class="job3">
+<rect x="657" y="257" width="7" height="16" rx="2"/>
+</g>
+
+<!-- time axis -->
+<line class="ax" x1="130" y1="295" x2="666" y2="295"/>
+<line class="ax" x1="130" y1="291" x2="130" y2="299"/>
+<line class="ax" x1="262" y1="291" x2="262" y2="299"/>
+<line class="ax" x1="395" y1="291" x2="395" y2="299"/>
+<line class="ax" x1="527" y1="291" x2="527" y2="299"/>
+<line class="ax" x1="660" y1="291" x2="660" y2="299"/>
+<text class="s" x="130" y="309">0</text>
+<text class="s" x="262" y="309">250 ms</text>
+<text class="s" x="395" y="309">500 ms</text>
+<text class="s" x="527" y="309">750 ms</text>
+<text class="s" x="660" y="309">1000 ms</text>
+
+<text class="sl" x="16" y="330">주기를 바꾸거나 작업을 하나 더 넣어도 나머지 작업은 영향을 받지 않는다 — usleep으로는 이렇게 되지 않는다.</text>
+</svg>
