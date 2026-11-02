@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="640" viewBox="0 0 1300 640">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 12.5px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .monob { font-family: Consolas, 'Courier New', monospace; font-size: 15px; font-weight: 700; fill: #17233c; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 2.5; }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 4; marker-end: url(#o); }
+    .rd { fill: none; stroke: #13889c; stroke-width: 4; marker-end: url(#t); }
+    .wave { fill: none; stroke: #17233c; stroke-width: 2.2; }
+    .grid { stroke: #d5dbe3; stroke-width: 1; stroke-dasharray: 3 4; }
+  </style>
+  <defs>
+    <marker id="o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#c96a12"/></marker>
+    <marker id="t" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#13889c"/></marker>
+  </defs>
+
+  <rect width="1300" height="640" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">AXI4-Lite의 다섯 채널과 VALID·READY 약속</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">ILA의 AXI 슬롯을 펼치면 보이는 다섯 묶음이다. 모든 채널이 같은 규칙으로 한 번씩 전달된다.</text>
+
+  <!-- left: channels -->
+  <rect x="30" y="105" width="150" height="400" rx="14" class="ps"/>
+  <text x="105" y="140" text-anchor="middle" class="head">마스터</text>
+  <text x="105" y="164" text-anchor="middle" class="small">PS (Interconnect 경유)</text>
+  <rect x="500" y="105" width="150" height="400" rx="14" class="user"/>
+  <text x="575" y="140" text-anchor="middle" class="head">슬레이브</text>
+  <text x="575" y="164" text-anchor="middle" class="small">my_io S00_AXI</text>
+
+  <path d="M180 210 H494" class="wr"/>
+  <text x="340" y="198" text-anchor="middle" class="label"><tspan class="monob">AW</tspan> 쓰기 주소</text>
+  <text x="340" y="232" text-anchor="middle" class="mono">AWADDR</text>
+  <path d="M180 275 H494" class="wr"/>
+  <text x="340" y="263" text-anchor="middle" class="label"><tspan class="monob">W</tspan> 쓰기 데이터</text>
+  <text x="340" y="297" text-anchor="middle" class="mono">WDATA · WSTRB</text>
+  <path d="M500 340 H186" class="wr"/>
+  <text x="340" y="328" text-anchor="middle" class="label"><tspan class="monob">B</tspan> 쓰기 응답</text>
+  <text x="340" y="362" text-anchor="middle" class="mono">BRESP</text>
+  <path d="M180 405 H494" class="rd"/>
+  <text x="340" y="393" text-anchor="middle" class="label"><tspan class="monob">AR</tspan> 읽기 주소</text>
+  <text x="340" y="427" text-anchor="middle" class="mono">ARADDR</text>
+  <path d="M500 470 H186" class="rd"/>
+  <text x="340" y="458" text-anchor="middle" class="label"><tspan class="monob">R</tspan> 읽기 데이터</text>
+  <text x="340" y="492" text-anchor="middle" class="mono">RDATA · RRESP</text>
+
+  <text x="340" y="535" text-anchor="middle" class="body">채널마다 xVALID(보내는 쪽)와 xREADY(받는 쪽)가 있다</text>
+  <text x="340" y="558" text-anchor="middle" class="small">쓰기 한 번 = AW + W + B · 읽기 한 번 = AR + R</text>
+
+  <!-- right: timing -->
+  <text x="720" y="125" class="head">한 채널에서 일어나는 일</text>
+  <text x="720" y="185" class="mono">ACLK</text>
+  <text x="720" y="265" class="mono">xVALID</text>
+  <text x="720" y="345" class="mono">xREADY</text>
+  <text x="720" y="425" class="mono">데이터</text>
+
+  <path d="M840 150 V450" class="grid"/>
+  <path d="M900 150 V450" class="grid"/>
+  <path d="M960 150 V450" class="grid"/>
+  <path d="M1080 150 V450" class="grid"/>
+  <path d="M1140 150 V450" class="grid"/>
+  <rect x="1008" y="145" width="24" height="310" fill="#31824b" fill-opacity="0.15"/>
+  <path d="M1020 145 V455" stroke="#31824b" stroke-width="2.5"/>
+
+  <!-- clock: rising edges at 840,900,960,1020,1080,1140 -->
+  <path d="M800 190 H810 V165 H840 V190 H870 V165 H900 V190 H930 V165 H960 V190 H990 V165 H1020 V190 H1050 V165 H1080 V190 H1110 V165 H1140 V190 H1170 V165 H1200 V190 H1220" class="wave" transform="translate(30,0)"/>
+
+  <!-- VALID -->
+  <path d="M810 270 H850 V245 H1030 V270 H1250" class="wave"/>
+  <!-- READY -->
+  <path d="M810 350 H970 V325 H1030 V350 H1250" class="wave"/>
+  <!-- DATA -->
+  <path d="M810 420 H844 L850 410 L856 420" class="wave" stroke="#8794a8"/>
+  <path d="M850 410 L856 400 H1024 L1030 410 L1024 420 H856 Z" fill="#fff0d7" stroke="#17233c" stroke-width="2"/>
+  <text x="940" y="416" text-anchor="middle" class="mono">주소 또는 데이터</text>
+  <path d="M1030 410 H1250" class="wave" stroke="#8794a8"/>
+
+  <text x="905" y="300" text-anchor="middle" class="small" fill="#a05d0c">VALID=1, READY=0</text>
+  <text x="905" y="317" text-anchor="middle" class="small" fill="#a05d0c">→ 값을 유지하고 기다린다</text>
+  <text x="1020" y="478" text-anchor="middle" class="label" fill="#31824b">둘 다 1인 엣지에서 전달</text>
+
+  <rect x="720" y="505" width="545" height="100" rx="12" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="740" y="535" class="body">· 보내는 쪽은 READY가 올 때까지 VALID와 값을 내리지 않는다.</text>
+  <text x="740" y="561" class="body">· 템플릿의 axi_awready · axi_wready · axi_bvalid · axi_arready ·</text>
+  <text x="752" y="583" class="body">axi_rvalid가 슬레이브 쪽 약속을 지켜 준다 (1장에서 손대지 않은 부분).</text>
+</svg>

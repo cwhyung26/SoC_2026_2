@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="600" viewBox="0 0 1300 600">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .colh { font-size: 14px; font-weight: 700; fill: #526078; }
+    .body { font-size: 15px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 17px; font-weight: 700; fill: #17233c; }
+    .monos { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #33425d; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .ipbox { fill: #fffdf8; stroke: #8a7550; stroke-width: 2.5; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.5; }
+    .cell { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .wcell { fill: #fdebd5; stroke: #c96a12; stroke-width: 1.5; }
+    .rcell { fill: #def3f6; stroke: #13889c; stroke-width: 1.5; }
+    .unused { fill: #eef1f5; stroke: #b5c0cf; stroke-width: 1.2; }
+    .usedW { fill: #f2b36b; stroke: #c96a12; stroke-width: 1.2; }
+    .usedR { fill: #7fcbd6; stroke: #13889c; stroke-width: 1.2; }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .rd { fill: none; stroke: #13889c; stroke-width: 3; marker-end: url(#t); }
+  </style>
+  <defs>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#13889c"/></marker>
+  </defs>
+
+  <rect width="1300" height="600" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">my_io 레지스터 맵 — 32비트 네 칸, 입출력 네 개</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">레지스터 하나가 4바이트이므로 오프셋은 4씩 커진다. 어느 칸이 입력이고 어느 칸이 출력인지는 Verilog에서 정한다.</text>
+
+  <!-- PS -->
+  <rect x="30" y="110" width="190" height="390" rx="14" class="ps"/>
+  <text x="125" y="145" text-anchor="middle" class="head">PS</text>
+  <text x="125" y="172" text-anchor="middle" class="small">BASE + 오프셋으로</text>
+  <text x="125" y="191" text-anchor="middle" class="small">읽고 쓴다</text>
+  <text x="125" y="243" text-anchor="middle" class="monos">Xil_Out32</text>
+  <text x="125" y="328" text-anchor="middle" class="monos">Xil_Out32</text>
+  <text x="125" y="413" text-anchor="middle" class="monos">Xil_In32</text>
+  <text x="125" y="498" text-anchor="middle" class="monos" dy="-10">Xil_In32</text>
+
+  <!-- register table -->
+  <rect x="270" y="95" width="700" height="430" rx="16" class="ipbox"/>
+  <text x="620" y="125" text-anchor="middle" class="head">my_io_0 / S00_AXI</text>
+  <text x="345" y="160" text-anchor="middle" class="colh">오프셋</text>
+  <text x="445" y="160" text-anchor="middle" class="colh">방향</text>
+  <text x="580" y="160" text-anchor="middle" class="colh">값이 오가는 곳</text>
+  <text x="830" y="160" text-anchor="middle" class="colh">32비트 중 쓰는 비트</text>
+
+  <!-- row 0 -->
+  <rect x="295" y="195" width="100" height="62" rx="6" class="cell"/>
+  <text x="345" y="232" text-anchor="middle" class="mono">+0x0</text>
+  <rect x="405" y="195" width="80" height="62" rx="6" class="wcell"/>
+  <text x="445" y="232" text-anchor="middle" class="body">쓰기</text>
+  <rect x="495" y="195" width="170" height="62" rx="6" class="cell"/>
+  <text x="580" y="222" text-anchor="middle" class="body">slv_reg0</text>
+  <text x="580" y="243" text-anchor="middle" class="small">→ 핀 led4</text>
+  <rect x="680" y="210" width="210" height="32" class="unused"/>
+  <text x="785" y="231" text-anchor="middle" class="small">[31:4] 핀으로 안 나감</text>
+  <rect x="890" y="210" width="60" height="32" class="usedW"/>
+  <text x="920" y="231" text-anchor="middle" class="monos">[3:0]</text>
+
+  <!-- row 1 -->
+  <rect x="295" y="280" width="100" height="62" rx="6" class="cell"/>
+  <text x="345" y="317" text-anchor="middle" class="mono">+0x4</text>
+  <rect x="405" y="280" width="80" height="62" rx="6" class="wcell"/>
+  <text x="445" y="317" text-anchor="middle" class="body">쓰기</text>
+  <rect x="495" y="280" width="170" height="62" rx="6" class="cell"/>
+  <text x="580" y="307" text-anchor="middle" class="body">slv_reg1</text>
+  <text x="580" y="328" text-anchor="middle" class="small">→ 핀 led3</text>
+  <rect x="680" y="295" width="225" height="32" class="unused"/>
+  <text x="792" y="316" text-anchor="middle" class="small">[31:3] 핀으로 안 나감</text>
+  <rect x="905" y="295" width="45" height="32" class="usedW"/>
+  <text x="927" y="316" text-anchor="middle" class="monos">[2:0]</text>
+
+  <!-- row 2 -->
+  <rect x="295" y="365" width="100" height="62" rx="6" class="cell"/>
+  <text x="345" y="402" text-anchor="middle" class="mono">+0x8</text>
+  <rect x="405" y="365" width="80" height="62" rx="6" class="rcell"/>
+  <text x="445" y="402" text-anchor="middle" class="body">읽기</text>
+  <rect x="495" y="365" width="170" height="62" rx="6" class="cell"/>
+  <text x="580" y="392" text-anchor="middle" class="body">입력 핀 sw4</text>
+  <text x="580" y="413" text-anchor="middle" class="small">레지스터가 아니다</text>
+  <rect x="680" y="380" width="210" height="32" class="unused"/>
+  <text x="785" y="401" text-anchor="middle" class="small">[31:4] 읽으면 0</text>
+  <rect x="890" y="380" width="60" height="32" class="usedR"/>
+  <text x="920" y="401" text-anchor="middle" class="monos">[3:0]</text>
+
+  <!-- row 3 -->
+  <rect x="295" y="450" width="100" height="62" rx="6" class="cell"/>
+  <text x="345" y="487" text-anchor="middle" class="mono">+0xC</text>
+  <rect x="405" y="450" width="80" height="62" rx="6" class="rcell"/>
+  <text x="445" y="487" text-anchor="middle" class="body">읽기</text>
+  <rect x="495" y="450" width="170" height="62" rx="6" class="cell"/>
+  <text x="580" y="477" text-anchor="middle" class="body">입력 핀 btn2</text>
+  <text x="580" y="498" text-anchor="middle" class="small">레지스터가 아니다</text>
+  <rect x="680" y="465" width="240" height="32" class="unused"/>
+  <text x="800" y="486" text-anchor="middle" class="small">[31:2] 읽으면 0</text>
+  <rect x="920" y="465" width="30" height="32" class="usedR"/>
+  <text x="935" y="486" text-anchor="middle" class="monos" font-size="11">[1:0]</text>
+
+  <!-- PS arrows -->
+  <path d="M220 226 H291" class="wr"/>
+  <path d="M220 311 H291" class="wr"/>
+  <path d="M295 396 H224" class="rd"/>
+  <path d="M295 481 H224" class="rd"/>
+
+  <!-- board -->
+  <rect x="1030" y="95" width="240" height="430" rx="16" class="board"/>
+  <text x="1150" y="125" text-anchor="middle" class="head">Board</text>
+  <rect x="1050" y="195" width="200" height="62" rx="8" class="cell"/>
+  <text x="1150" y="222" text-anchor="middle" class="body">Shield LED ×4</text>
+  <text x="1150" y="243" text-anchor="middle" class="small">bit0~bit3</text>
+  <rect x="1050" y="280" width="200" height="62" rx="8" class="cell"/>
+  <text x="1150" y="307" text-anchor="middle" class="body">RGB LED1</text>
+  <text x="1150" y="328" text-anchor="middle" class="small">bit0=R · bit1=G · bit2=B</text>
+  <rect x="1050" y="365" width="200" height="62" rx="8" class="cell"/>
+  <text x="1150" y="392" text-anchor="middle" class="body">Shield 스위치 ×4</text>
+  <text x="1150" y="413" text-anchor="middle" class="small">bit0~bit3</text>
+  <rect x="1050" y="450" width="200" height="62" rx="8" class="cell"/>
+  <text x="1150" y="477" text-anchor="middle" class="body">BTN0 · BTN1</text>
+  <text x="1150" y="498" text-anchor="middle" class="small">bit0=BTN0 · bit1=BTN1</text>
+
+  <path d="M950 226 H1046" class="wr"/>
+  <path d="M950 311 H1046" class="wr"/>
+  <path d="M1050 396 H954" class="rd"/>
+  <path d="M1050 481 H954" class="rd"/>
+
+  <!-- legend -->
+  <path d="M300 560 H350" class="wr"/>
+  <text x="362" y="565" class="body">쓰기: PS → 레지스터 → 출력 핀</text>
+  <path d="M640 560 H690" class="rd"/>
+  <text x="702" y="565" class="body">읽기: 입력 핀 → PS (방향 레지스터 TRI 없음)</text>
+</svg>

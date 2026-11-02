@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="700" viewBox="0 0 1300 700">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .file { fill: #f7f8fb; stroke: #65738a; stroke-width: 2.5; }
+    .inner { fill: #ffffff; stroke: #65738a; stroke-width: 2; }
+    .tmpl { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.2; }
+    .reg { fill: #d7e8fb; stroke: #2e69a3; stroke-width: 1.8; }
+    .hole { fill: #fffaf0; stroke: #bd7711; stroke-width: 2; stroke-dasharray: 8 5; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 4; marker-end: url(#g); }
+    .flow { fill: none; stroke: #2e69a3; stroke-width: 2.8; marker-end: url(#b); }
+  </style>
+  <defs>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#31824b"/></marker>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2e69a3"/></marker>
+  </defs>
+
+  <rect width="1300" height="700" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">생성된 템플릿의 구조 — 고치기 전</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">바깥 포장 안에 실제 내용이 하나 들어 있다. 템플릿 그대로는 "쓴 값을 그대로 다시 읽는 레지스터 네 개"일 뿐이다.</text>
+
+  <!-- PS side -->
+  <rect x="30" y="250" width="150" height="190" rx="14" class="ps"/>
+  <text x="105" y="290" text-anchor="middle" class="head">PS</text>
+  <text x="105" y="318" text-anchor="middle" class="small">M_AXI_GP0</text>
+  <text x="105" y="370" text-anchor="middle" class="small">(2장에서 연결)</text>
+  <path d="M180 300 H232" class="bus"/>
+  <path d="M232 390 H184" class="bus"/>
+  <text x="206" y="285" text-anchor="middle" class="small">AW·W</text>
+  <text x="206" y="415" text-anchor="middle" class="small">R</text>
+
+  <!-- outer file -->
+  <rect x="235" y="95" width="1035" height="560" rx="18" class="file"/>
+  <text x="260" y="128" class="head">my_io_v1_0.v</text>
+  <text x="400" y="128" class="small">— IP의 바깥 포장. Block Design에서 보이는 포트가 여기 선언된다</text>
+  <text x="260" y="160" class="mono">s00_axi_* 포트</text>
+  <text x="1245" y="160" text-anchor="end" class="small">사용자 포트 자리: 아직 비어 있다</text>
+
+  <!-- inner module -->
+  <rect x="265" y="180" width="975" height="450" rx="14" class="inner"/>
+  <text x="290" y="212" class="head">my_io_v1_0_S00_AXI_inst</text>
+  <text x="530" y="212" class="small">(my_io_v1_0_S00_AXI.v — 실제 내용, 400줄 넘음)</text>
+
+  <!-- handshake block -->
+  <rect x="290" y="240" width="250" height="360" rx="10" class="tmpl"/>
+  <text x="415" y="272" text-anchor="middle" class="label">AXI 핸드셰이크</text>
+  <text x="415" y="300" text-anchor="middle" class="mono">axi_awready</text>
+  <text x="415" y="322" text-anchor="middle" class="mono">axi_wready</text>
+  <text x="415" y="344" text-anchor="middle" class="mono">axi_bvalid</text>
+  <text x="415" y="366" text-anchor="middle" class="mono">axi_arready</text>
+  <text x="415" y="388" text-anchor="middle" class="mono">axi_rvalid</text>
+  <text x="415" y="430" text-anchor="middle" class="body">주소·데이터를 받아</text>
+  <text x="415" y="452" text-anchor="middle" class="body">axi_awaddr / axi_araddr에</text>
+  <text x="415" y="474" text-anchor="middle" class="body">저장하고 응답을 보낸다</text>
+  <text x="415" y="575" text-anchor="middle" class="small">손대지 않는다</text>
+
+  <!-- write block -->
+  <rect x="590" y="240" width="240" height="130" rx="10" class="tmpl"/>
+  <text x="710" y="272" text-anchor="middle" class="label">쓰기</text>
+  <text x="710" y="298" text-anchor="middle" class="mono">slv_reg_wren</text>
+  <text x="710" y="322" text-anchor="middle" class="body">axi_awaddr[3:2]로</text>
+  <text x="710" y="344" text-anchor="middle" class="body">네 칸 중 하나에 저장</text>
+
+  <!-- registers -->
+  <rect x="880" y="240" width="140" height="44" rx="6" class="reg"/>
+  <text x="950" y="268" text-anchor="middle" class="mono">slv_reg0</text>
+  <rect x="880" y="292" width="140" height="44" rx="6" class="reg"/>
+  <text x="950" y="320" text-anchor="middle" class="mono">slv_reg1</text>
+  <rect x="880" y="344" width="140" height="44" rx="6" class="reg"/>
+  <text x="950" y="372" text-anchor="middle" class="mono">slv_reg2</text>
+  <rect x="880" y="396" width="140" height="44" rx="6" class="reg"/>
+  <text x="950" y="424" text-anchor="middle" class="mono">slv_reg3</text>
+  <text x="1030" y="460" class="small">32비트 × 4</text>
+
+  <!-- read mux -->
+  <rect x="590" y="430" width="240" height="140" rx="10" class="tmpl"/>
+  <text x="710" y="462" text-anchor="middle" class="label">읽기 선택</text>
+  <text x="710" y="488" text-anchor="middle" class="mono">reg_data_out</text>
+  <text x="710" y="512" text-anchor="middle" class="body">axi_araddr[3:2]로</text>
+  <text x="710" y="534" text-anchor="middle" class="body">네 칸 중 하나를 돌려줌</text>
+
+  <!-- user logic hole -->
+  <rect x="1060" y="240" width="160" height="200" rx="10" class="hole"/>
+  <text x="1140" y="285" text-anchor="middle" class="label" fill="#a05d0c">Add user</text>
+  <text x="1140" y="307" text-anchor="middle" class="label" fill="#a05d0c">logic here</text>
+  <text x="1140" y="345" text-anchor="middle" class="body">비어 있다</text>
+  <text x="1140" y="375" text-anchor="middle" class="small">레지스터와 핀을</text>
+  <text x="1140" y="395" text-anchor="middle" class="small">잇는 자리 (1.6절)</text>
+
+  <!-- flows -->
+  <path d="M540 300 H586" class="flow"/>
+  <path d="M830 305 H876" class="flow"/>
+  <path d="M950 468 V500 H834" class="flow"/>
+  <path d="M590 500 H544" class="flow"/>
+  <text x="870" y="530" class="small">쓴 값이 그대로</text>
+  <text x="870" y="549" class="small">다시 읽힌다</text>
+</svg>

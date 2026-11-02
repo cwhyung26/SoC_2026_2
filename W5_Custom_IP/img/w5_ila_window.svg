@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="640" viewBox="0 0 1300 640">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 17px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #24324a; }
+    .axis { stroke: #65738a; stroke-width: 2; fill: none; }
+    .tick { stroke: #65738a; stroke-width: 1.5; }
+    .burst { fill: #31824b; }
+    .quiet { fill: #f4f6fa; stroke: #c3cbd6; stroke-width: 1; }
+    .win { fill: #f1edff; stroke: #7152a5; stroke-width: 2.5; }
+    .pre { fill: #e4ddfa; stroke: none; }
+    .rd { fill: #def3f6; stroke: #13889c; stroke-width: 1.8; }
+    .wr { fill: #fdebd5; stroke: #c96a12; stroke-width: 1.8; }
+    .trig { stroke: #c63838; stroke-width: 3; }
+    .zoom { fill: #7152a5; fill-opacity: 0.06; stroke: #7152a5; stroke-width: 1.2; stroke-dasharray: 5 4; }
+  </style>
+
+  <rect width="1300" height="640" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">ILA는 20 µs만 기록한다 — 그래서 트리거가 필요하다</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">깊이 1024 × 20 ns(50 MHz) ≈ 20 µs. 프로그램은 0.2 s마다 한 바퀴를 돈다. 기록 창은 한 주기의 약 1/10,000이다.</text>
+
+  <!-- top timeline -->
+  <text x="60" y="118" class="head">프로그램 시간축</text>
+  <text x="60" y="140" class="small">0.2 s마다 한 바퀴</text>
+  <path d="M220 160 H1240" class="axis"/>
+  <g>
+    <rect x="240" y="120" width="320" height="40" class="quiet"/>
+    <rect x="580" y="120" width="320" height="40" class="quiet"/>
+    <rect x="920" y="120" width="300" height="40" class="quiet"/>
+    <text x="400" y="145" text-anchor="middle" class="small">printf · usleep(200000) — 버스 조용함</text>
+    <text x="740" y="145" text-anchor="middle" class="small">printf · usleep(200000)</text>
+    <text x="1070" y="145" text-anchor="middle" class="small">printf · usleep(200000)</text>
+    <rect x="232" y="110" width="8" height="50" class="burst"/>
+    <rect x="572" y="110" width="8" height="50" class="burst"/>
+    <rect x="912" y="110" width="8" height="50" class="burst"/>
+  </g>
+  <path d="M236 160 V170" class="tick"/><text x="236" y="188" text-anchor="middle" class="mono">0</text>
+  <path d="M576 160 V170" class="tick"/><text x="576" y="188" text-anchor="middle" class="mono">0.2 s</text>
+  <path d="M916 160 V170" class="tick"/><text x="916" y="188" text-anchor="middle" class="mono">0.4 s</text>
+  <text x="236" y="102" text-anchor="middle" class="small" fill="#31824b">읽기 2 + 쓰기 2</text>
+
+  <!-- zoom -->
+  <polygon points="572,160 580,160 1240,260 120,260" class="zoom"/>
+
+  <!-- ILA window -->
+  <text x="1240" y="255" text-anchor="end" class="head" fill="#5b3f8f">ILA 기록 창 · 1024 샘플 ≈ 20 µs</text>
+  <rect x="120" y="275" width="1120" height="110" rx="6" class="win"/>
+  <rect x="121" y="276" width="109" height="108" class="pre"/>
+  <path d="M230 262 V398" class="trig"/>
+  <text x="230" y="255" text-anchor="middle" class="label" fill="#c63838">트리거: ARVALID = 1</text>
+
+  <rect x="250" y="305" width="120" height="50" rx="6" class="rd"/>
+  <text x="310" y="328" text-anchor="middle" class="label">읽기</text>
+  <text x="310" y="346" text-anchor="middle" class="mono">+0x8</text>
+  <rect x="390" y="305" width="120" height="50" rx="6" class="rd"/>
+  <text x="450" y="328" text-anchor="middle" class="label">읽기</text>
+  <text x="450" y="346" text-anchor="middle" class="mono">+0xC</text>
+  <rect x="530" y="305" width="120" height="50" rx="6" class="wr"/>
+  <text x="590" y="328" text-anchor="middle" class="label">쓰기</text>
+  <text x="590" y="346" text-anchor="middle" class="mono">+0x0</text>
+  <rect x="670" y="305" width="120" height="50" rx="6" class="wr"/>
+  <text x="730" y="328" text-anchor="middle" class="label">쓰기</text>
+  <text x="730" y="346" text-anchor="middle" class="mono">+0x4</text>
+  <text x="1010" y="335" text-anchor="middle" class="small">그 뒤로는 printf · usleep — 조용하다</text>
+
+  <path d="M120 400 H1240" class="axis"/>
+  <path d="M120 395 V408" class="tick"/><text x="120" y="426" text-anchor="middle" class="mono">0</text>
+  <path d="M230 395 V408" class="tick"/><text x="230" y="426" text-anchor="middle" class="mono">100</text>
+  <path d="M1240 395 V408" class="tick"/><text x="1240" y="426" text-anchor="middle" class="mono">1023</text>
+  <text x="680" y="426" text-anchor="middle" class="small">샘플 번호 (1 샘플 = FCLK_CLK0 한 클럭 = 20 ns)</text>
+  <text x="175" y="448" text-anchor="middle" class="small">트리거 앞 100</text>
+  <text x="175" y="465" text-anchor="middle" class="small">(약 2 µs)</text>
+  <text x="735" y="455" text-anchor="middle" class="small">트리거 뒤 924 샘플 (약 18.5 µs)</text>
+
+  <!-- notes -->
+  <rect x="120" y="495" width="1120" height="120" rx="12" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="145" y="527" class="label">읽는 법</text>
+  <text x="145" y="555" class="body">· 트리거가 없으면 ILA가 아무 순간이나 20 µs를 잡는다. 거의 언제나 "버스 조용함" 구간이라 파형이 비어 보인다.</text>
+  <text x="145" y="580" class="body">· 한 바퀴의 첫 동작이 읽기(+0x8)이므로 ARVALID = 1을 트리거로 잡으면 네 동작이 창의 앞쪽에 들어온다.</text>
+  <text x="145" y="605" class="body">· Trigger position = 100이면 트리거 앞의 100 샘플도 남는다. 버스가 조용하다가 시작되는 모습까지 보인다.</text>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="700" viewBox="0 0 1300 700">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 17px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 12.5px; fill: #526078; }
+    .addr { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #33425d; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .ddr { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2; }
+    .empty { fill: #f7f8fa; stroke: #c3cbd6; stroke-width: 1.5; }
+    .gp0 { fill: #ecf8ef; stroke: #31824b; stroke-width: 3; }
+    .other { fill: #eef1f5; stroke: #8794a8; stroke-width: 2; }
+    .gpio { fill: #ffffff; stroke: #8794a8; stroke-width: 2; stroke-dasharray: 6 4; }
+    .myio { fill: #fff0d7; stroke: #bd7711; stroke-width: 3; }
+    .regW { fill: #fdebd5; stroke: #c96a12; stroke-width: 1.5; }
+    .regR { fill: #def3f6; stroke: #13889c; stroke-width: 1.5; }
+    .zoom { fill: #31824b; fill-opacity: 0.07; stroke: #31824b; stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .zoomO { fill: #bd7711; fill-opacity: 0.08; stroke: #bd7711; stroke-width: 1.2; stroke-dasharray: 5 4; }
+  </style>
+
+  <rect width="1300" height="700" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">PS가 보는 주소 공간과 my_io_0의 자리</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">왼쪽에서 오른쪽으로 갈수록 확대한다. 칸 높이는 실제 크기와 비례하지 않는다.</text>
+
+  <!-- column 1 -->
+  <text x="235" y="105" text-anchor="middle" class="head">Zynq 주소 공간 (4 GB)</text>
+  <rect x="160" y="120" width="150" height="90" class="ddr"/>
+  <text x="235" y="160" text-anchor="middle" class="label">DDR</text>
+  <text x="235" y="182" text-anchor="middle" class="small">512 MB · 프로그램·데이터</text>
+  <rect x="160" y="210" width="150" height="50" class="empty"/>
+  <text x="235" y="240" text-anchor="middle" class="small">비어 있음</text>
+  <rect x="160" y="260" width="150" height="160" class="gp0"/>
+  <text x="235" y="325" text-anchor="middle" class="label">M_AXI_GP0</text>
+  <text x="235" y="348" text-anchor="middle" class="body">PL 쪽 IP들</text>
+  <text x="235" y="370" text-anchor="middle" class="small">1 GB</text>
+  <rect x="160" y="420" width="150" height="80" class="other"/>
+  <text x="235" y="456" text-anchor="middle" class="label">M_AXI_GP1</text>
+  <text x="235" y="478" text-anchor="middle" class="small">이번 주는 안 쓴다</text>
+  <rect x="160" y="500" width="150" height="50" class="empty"/>
+  <text x="235" y="530" text-anchor="middle" class="small">비어 있음</text>
+  <rect x="160" y="550" width="150" height="80" class="other"/>
+  <text x="235" y="585" text-anchor="middle" class="label">PS 주변장치</text>
+  <text x="235" y="607" text-anchor="middle" class="small">UART·Timer·OCM 등</text>
+
+  <text x="150" y="125" text-anchor="end" class="addr">0x0000_0000</text>
+  <text x="150" y="265" text-anchor="end" class="addr">0x4000_0000</text>
+  <text x="150" y="424" text-anchor="end" class="addr">0x8000_0000</text>
+  <text x="150" y="555" text-anchor="end" class="addr">0xE000_0000</text>
+  <text x="150" y="634" text-anchor="end" class="addr">0xFFFF_FFFF</text>
+
+  <!-- zoom 1 -->
+  <polygon points="310,260 560,120 560,630 310,420" class="zoom"/>
+
+  <!-- column 2 -->
+  <text x="645" y="105" text-anchor="middle" class="head">M_AXI_GP0 영역</text>
+  <rect x="560" y="120" width="170" height="510" class="gp0" fill-opacity="0.35"/>
+  <rect x="575" y="200" width="140" height="90" rx="6" class="gpio"/>
+  <text x="645" y="235" text-anchor="middle" class="label" fill="#5a667a">AXI GPIO</text>
+  <text x="645" y="257" text-anchor="middle" class="small">4주차 · 64K</text>
+  <text x="645" y="276" text-anchor="middle" class="small">(이 프로젝트엔 없음)</text>
+  <rect x="575" y="340" width="140" height="90" rx="6" class="myio"/>
+  <text x="645" y="378" text-anchor="middle" class="label">my_io_0</text>
+  <text x="645" y="400" text-anchor="middle" class="small">S00_AXI · 64K</text>
+  <text x="645" y="530" text-anchor="middle" class="small">나머지는 비어 있다</text>
+
+  <text x="745" y="125" class="addr">0x4000_0000</text>
+  <text x="745" y="205" class="addr">0x4120_0000</text>
+  <text x="745" y="345" class="addr">0x43C0_0000</text>
+  <text x="745" y="634" class="addr">0x7FFF_FFFF</text>
+
+  <!-- zoom 2 -->
+  <polygon points="715,340 900,120 900,630 715,430" class="zoomO"/>
+
+  <!-- column 3 -->
+  <text x="1065" y="105" text-anchor="middle" class="head">my_io_0 (0x43C0_0000 ~ 0x43C0_FFFF)</text>
+  <rect x="900" y="120" width="330" height="510" class="myio" fill-opacity="0.3"/>
+  <rect x="915" y="135" width="300" height="48" rx="5" class="regW"/>
+  <text x="930" y="165" class="mono">+0x0</text><text x="1000" y="165" class="body">led4 쓰기</text>
+  <rect x="915" y="188" width="300" height="48" rx="5" class="regW"/>
+  <text x="930" y="218" class="mono">+0x4</text><text x="1000" y="218" class="body">led3 쓰기</text>
+  <rect x="915" y="241" width="300" height="48" rx="5" class="regR"/>
+  <text x="930" y="271" class="mono">+0x8</text><text x="1000" y="271" class="body">sw4 읽기</text>
+  <rect x="915" y="294" width="300" height="48" rx="5" class="regR"/>
+  <text x="930" y="324" class="mono">+0xC</text><text x="1000" y="324" class="body">btn2 읽기</text>
+  <text x="1065" y="368" text-anchor="middle" class="label">실제로 쓰는 곳은 16바이트</text>
+  <rect x="915" y="385" width="300" height="230" rx="5" class="empty"/>
+  <text x="1065" y="490" text-anchor="middle" class="body">+0x10 ~ +0xFFFF</text>
+  <text x="1065" y="514" text-anchor="middle" class="small">비어 있다 — Vivado가 IP마다</text>
+  <text x="1065" y="534" text-anchor="middle" class="small">최소 64K씩 떼어 준다</text>
+
+  <rect x="160" y="650" width="1070" height="38" rx="8" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="695" y="675" text-anchor="middle" class="body">주소는 외우지 않는다: Address Editor에서 확인하고, C 코드는 xparameters.h의 XPAR_MY_IO_0_BASEADDR를 쓴다</text>
+</svg>

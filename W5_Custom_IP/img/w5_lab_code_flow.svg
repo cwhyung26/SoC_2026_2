@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1250" viewBox="0 0 1300 1250">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 28px; font-weight: 700; fill: #16324f; }
+    .section { font-size: 21px; font-weight: 700; fill: #17324d; }
+    .head { font-size: 17px; font-weight: 700; fill: #17324d; }
+    .body { font-size: 14px; fill: #4d6478; }
+    .label { font-size: 14px; font-weight: 700; fill: #28577f; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 15px; font-weight: 700; fill: #17324d; }
+    .monos { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #4d6478; }
+    .flow { stroke: #657b8e; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .rdA { stroke: #13889c; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .wrA { stroke: #c96a12; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#657b8e"/></marker>
+  </defs>
+  <rect width="1300" height="1250" fill="#f6f9fc"/>
+  <text x="650" y="48" text-anchor="middle" class="title">LAB03 my_io_test.c 실행 Flow</text>
+
+  <!-- section 1 -->
+  <rect x="35" y="80" width="1230" height="830" rx="20" fill="white" stroke="#a7bad0" stroke-width="2"/>
+  <text x="70" y="122" class="section">1. main() 실행 순서와 버스에서 일어나는 일</text>
+
+  <ellipse cx="420" cy="175" rx="100" ry="32" fill="#eaf2fb" stroke="#2b5e8f" stroke-width="2.5"/>
+  <text x="420" y="182" text-anchor="middle" class="head">Program 시작</text>
+  <path d="M420 207 V240" class="flow"/>
+  <rect x="220" y="245" width="400" height="62" rx="8" fill="#f2f4f7" stroke="#65738a" stroke-width="2.5"/>
+  <text x="420" y="272" text-anchor="middle" class="mono">print("my_io start")</text>
+  <text x="420" y="295" text-anchor="middle" class="body">UART로 시작 표시</text>
+  <path d="M420 307 V335" class="flow"/>
+  <circle cx="420" cy="362" r="25" fill="white" stroke="#4169e1" stroke-width="2.5"/>
+  <text x="420" y="369" text-anchor="middle" class="head">A</text>
+  <path d="M420 387 V410" class="flow"/>
+
+  <!-- 4 bus ops -->
+  <rect x="220" y="415" width="400" height="66" rx="8" fill="#e5f8fb" stroke="#13889c" stroke-width="2.5"/>
+  <text x="420" y="443" text-anchor="middle" class="mono">sw = Xil_In32(REG_SW4);</text>
+  <text x="420" y="467" text-anchor="middle" class="body">+0x8 읽기 — shield 스위치</text>
+  <path d="M420 481 V505" class="flow"/>
+  <rect x="220" y="510" width="400" height="66" rx="8" fill="#e5f8fb" stroke="#13889c" stroke-width="2.5"/>
+  <text x="420" y="538" text-anchor="middle" class="mono">btn = Xil_In32(REG_BTN2);</text>
+  <text x="420" y="562" text-anchor="middle" class="body">+0xC 읽기 — BTN0, BTN1</text>
+  <path d="M420 576 V600" class="flow"/>
+  <rect x="220" y="605" width="400" height="66" rx="8" fill="#fff2df" stroke="#df7a00" stroke-width="2.5"/>
+  <text x="420" y="633" text-anchor="middle" class="mono">Xil_Out32(REG_LED4, sw);</text>
+  <text x="420" y="657" text-anchor="middle" class="body">+0x0 쓰기 — 스위치 값 → shield LED</text>
+  <path d="M420 671 V695" class="flow"/>
+  <rect x="220" y="700" width="400" height="66" rx="8" fill="#fff2df" stroke="#df7a00" stroke-width="2.5"/>
+  <text x="420" y="728" text-anchor="middle" class="mono">Xil_Out32(REG_LED3, btn);</text>
+  <text x="420" y="752" text-anchor="middle" class="body">+0x4 쓰기 — 버튼 값 → RGB LED1</text>
+  <path d="M420 766 V790" class="flow"/>
+  <rect x="220" y="795" width="400" height="66" rx="8" fill="#f2f4f7" stroke="#65738a" stroke-width="2.5"/>
+  <text x="420" y="823" text-anchor="middle" class="mono">xil_printf(...); usleep(200000);</text>
+  <text x="420" y="847" text-anchor="middle" class="body">값 출력 후 0.2초 쉼 — 버스는 조용하다</text>
+  <path d="M220 828 H120 V362 H391" class="flow"/>
+  <text x="105" y="600" text-anchor="middle" class="label" transform="rotate(-90 105 600)">while (1) — 0.2초마다 반복</text>
+
+  <!-- right: bus side -->
+  <text x="700" y="400" class="label">AXI 버스 · 핀 (ILA로 보이는 것)</text>
+  <rect x="700" y="415" width="530" height="66" rx="8" fill="white" stroke="#13889c" stroke-width="2"/>
+  <text x="720" y="443" class="monos">AR: ARADDR = 8   →   R: RDATA = {28'd0, sw4}</text>
+  <text x="720" y="467" class="body">1장 ② reg_data_out의 2'h2 줄이 핀 값을 돌려준다</text>
+  <rect x="700" y="510" width="530" height="66" rx="8" fill="white" stroke="#13889c" stroke-width="2"/>
+  <text x="720" y="538" class="monos">AR: ARADDR = C   →   R: RDATA = {30'd0, btn2}</text>
+  <text x="720" y="562" class="body">2'h3 줄</text>
+  <rect x="700" y="605" width="530" height="66" rx="8" fill="white" stroke="#c96a12" stroke-width="2"/>
+  <text x="720" y="633" class="monos">AW: AWADDR = 0 · W: WDATA = sw   →   B: 응답</text>
+  <text x="720" y="657" class="body">slv_reg0 갱신과 같은 클럭에 led4 핀이 바뀐다 (1장 ③)</text>
+  <rect x="700" y="700" width="530" height="66" rx="8" fill="white" stroke="#c96a12" stroke-width="2"/>
+  <text x="720" y="728" class="monos">AW: AWADDR = 4 · W: WDATA = btn  →   B: 응답</text>
+  <text x="720" y="752" class="body">slv_reg1 → led3 핀 (BTN0=R, BTN1=G)</text>
+  <path d="M620 448 H700" class="rdA"/>
+  <path d="M620 543 H700" class="rdA"/>
+  <path d="M620 638 H700" class="wrA"/>
+  <path d="M620 733 H700" class="wrA"/>
+  <text x="965" y="815" text-anchor="middle" class="body">이 네 동작이 3.5.3절 ILA 캡처 1의 네 묶음이다</text>
+
+  <!-- section 2 -->
+  <rect x="35" y="940" width="1230" height="280" rx="20" fill="white" stroke="#a7bad0" stroke-width="2"/>
+  <text x="70" y="982" class="section">2. C 한 줄이 Board 핀까지 도달하는 경로</text>
+  <rect x="60" y="1040" width="200" height="110" rx="8" fill="#fff2df" stroke="#df7a00" stroke-width="2.5"/>
+  <text x="160" y="1078" text-anchor="middle" class="head">Application</text>
+  <text x="160" y="1104" text-anchor="middle" class="body">REG_LED4 =</text>
+  <text x="160" y="1124" text-anchor="middle" class="body">BASE + 0x0</text>
+  <path d="M260 1095 H300" class="flow"/>
+  <rect x="305" y="1040" width="200" height="110" rx="8" fill="#e5f8fb" stroke="#13889c" stroke-width="2.5"/>
+  <text x="405" y="1078" text-anchor="middle" class="head">xil_io.h</text>
+  <text x="405" y="1104" text-anchor="middle" class="body">Xil_In32 / Xil_Out32</text>
+  <text x="405" y="1124" text-anchor="middle" class="body">주소에 직접 load/store</text>
+  <path d="M505 1095 H545" class="flow"/>
+  <rect x="550" y="1040" width="200" height="110" rx="8" fill="#eef3f8" stroke="#2b5e8f" stroke-width="2.5"/>
+  <text x="650" y="1078" text-anchor="middle" class="head">M_AXI_GP0</text>
+  <text x="650" y="1104" text-anchor="middle" class="body">AXI Interconnect가</text>
+  <text x="650" y="1124" text-anchor="middle" class="body">0x43C0_xxxx → my_io_0</text>
+  <path d="M750 1095 H790" class="flow"/>
+  <rect x="795" y="1040" width="210" height="110" rx="8" fill="#fff2df" stroke="#df7a00" stroke-width="2.5"/>
+  <text x="900" y="1078" text-anchor="middle" class="head">my_io S00_AXI</text>
+  <text x="900" y="1104" text-anchor="middle" class="body">주소 [3:2]로 칸 선택</text>
+  <text x="900" y="1124" text-anchor="middle" class="body">slv_reg / 입력 핀</text>
+  <path d="M1005 1095 H1045" class="flow"/>
+  <rect x="1050" y="1040" width="190" height="110" rx="8" fill="#e7f5ea" stroke="#238636" stroke-width="2.5"/>
+  <text x="1145" y="1078" text-anchor="middle" class="head">Board</text>
+  <text x="1145" y="1104" text-anchor="middle" class="body">스위치 · 버튼</text>
+  <text x="1145" y="1124" text-anchor="middle" class="body">shield LED · RGB LED</text>
+  <text x="650" y="1192" text-anchor="middle" class="body">드라이버(XGpio 같은 함수)가 없으므로 Application이 레지스터 맵을 직접 안다 — 1장에서 정한 표가 곧 소프트웨어의 사양이다</text>
+</svg>

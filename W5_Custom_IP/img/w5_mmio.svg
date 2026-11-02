@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="600" viewBox="0 0 1300 600">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 3; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.5; }
+    .code { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .wcell { fill: #fdebd5; stroke: #c96a12; stroke-width: 2; }
+    .rcell { fill: #def3f6; stroke: #13889c; stroke-width: 2; }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .rd { fill: none; stroke: #13889c; stroke-width: 3; marker-end: url(#t); }
+  </style>
+  <defs>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#13889c"/></marker>
+  </defs>
+
+  <rect width="1300" height="600" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">메모리 맵 I/O — C 한 줄 = 주소 하나 = 레지스터 한 칸</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">PS에게 0x43C0_0000~000C는 메모리 주소처럼 보인다. 다만 그 주소에 대답하는 것은 DDR이 아니라 my_io다.</text>
+
+  <!-- column heads -->
+  <text x="190" y="104" text-anchor="middle" class="head">PS — C 코드</text>
+  <text x="560" y="104" text-anchor="middle" class="head">AXI 버스 — 주소</text>
+  <text x="850" y="104" text-anchor="middle" class="head">my_io_0</text>
+  <text x="1150" y="104" text-anchor="middle" class="head">보드</text>
+
+  <rect x="30" y="118" width="320" height="400" rx="14" class="ps"/>
+  <rect x="720" y="118" width="260" height="400" rx="14" class="user"/>
+  <rect x="1050" y="118" width="220" height="400" rx="14" class="board"/>
+
+  <!-- row 1: led4 -->
+  <rect x="45" y="140" width="290" height="70" rx="8" class="code"/>
+  <text x="58" y="170" class="mono">Xil_Out32(REG_LED4, sw);</text>
+  <text x="58" y="194" class="small">이 주소에 sw 값을 써라</text>
+  <path d="M350 175 H732" class="wr"/>
+  <text x="560" y="164" text-anchor="middle" class="mono" fill="#a05d0c">쓰기 0x43C0_0000</text>
+  <rect x="740" y="140" width="220" height="70" rx="8" class="wcell"/>
+  <text x="850" y="168" text-anchor="middle" class="mono">+0x0  slv_reg0</text>
+  <text x="850" y="192" text-anchor="middle" class="small">[3:0] → led4</text>
+  <path d="M960 175 H1062" class="wr"/>
+  <text x="1160" y="170" text-anchor="middle" class="label">shield LED</text>
+  <text x="1160" y="192" text-anchor="middle" class="small">4개</text>
+
+  <!-- row 2: led3 -->
+  <rect x="45" y="230" width="290" height="70" rx="8" class="code"/>
+  <text x="58" y="260" class="mono">Xil_Out32(REG_LED3, btn);</text>
+  <text x="58" y="284" class="small">이 주소에 btn 값을 써라</text>
+  <path d="M350 265 H732" class="wr"/>
+  <text x="560" y="254" text-anchor="middle" class="mono" fill="#a05d0c">쓰기 0x43C0_0004</text>
+  <rect x="740" y="230" width="220" height="70" rx="8" class="wcell"/>
+  <text x="850" y="258" text-anchor="middle" class="mono">+0x4  slv_reg1</text>
+  <text x="850" y="282" text-anchor="middle" class="small">[2:0] → led3</text>
+  <path d="M960 265 H1062" class="wr"/>
+  <text x="1160" y="260" text-anchor="middle" class="label">RGB LED1</text>
+  <text x="1160" y="282" text-anchor="middle" class="small">R · G · B</text>
+
+  <!-- row 3: sw4 -->
+  <rect x="45" y="320" width="290" height="70" rx="8" class="code"/>
+  <text x="58" y="350" class="mono">sw = Xil_In32(REG_SW4);</text>
+  <text x="58" y="374" class="small">이 주소의 값을 읽어 sw에 넣어라</text>
+  <path d="M732 355 H354" class="rd"/>
+  <text x="560" y="344" text-anchor="middle" class="mono" fill="#0f6f80">읽기 0x43C0_0008</text>
+  <rect x="740" y="320" width="220" height="70" rx="8" class="rcell"/>
+  <text x="850" y="348" text-anchor="middle" class="mono">+0x8  {28'd0, sw4}</text>
+  <text x="850" y="372" text-anchor="middle" class="small">핀의 지금 값</text>
+  <path d="M1062 355 H964" class="rd"/>
+  <text x="1160" y="350" text-anchor="middle" class="label">shield 스위치</text>
+  <text x="1160" y="372" text-anchor="middle" class="small">4개</text>
+
+  <!-- row 4: btn2 -->
+  <rect x="45" y="410" width="290" height="70" rx="8" class="code"/>
+  <text x="58" y="440" class="mono">btn = Xil_In32(REG_BTN2);</text>
+  <text x="58" y="464" class="small">이 주소의 값을 읽어 btn에 넣어라</text>
+  <path d="M732 445 H354" class="rd"/>
+  <text x="560" y="434" text-anchor="middle" class="mono" fill="#0f6f80">읽기 0x43C0_000C</text>
+  <rect x="740" y="410" width="220" height="70" rx="8" class="rcell"/>
+  <text x="850" y="438" text-anchor="middle" class="mono">+0xC  {30'd0, btn2}</text>
+  <text x="850" y="462" text-anchor="middle" class="small">핀의 지금 값</text>
+  <path d="M1062 445 H964" class="rd"/>
+  <text x="1160" y="440" text-anchor="middle" class="label">BTN0 · BTN1</text>
+  <text x="1160" y="462" text-anchor="middle" class="small">2개</text>
+
+  <!-- notes -->
+  <rect x="30" y="535" width="1240" height="50" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="566" class="body">주소 = MY_IO_BASE(0x43C0_0000) + 오프셋.  주황 = Xil_Out32(쓰기, PS → 핀),  청록 = Xil_In32(읽기, 핀 → PS).  함수는 두 개뿐이고, 어느 칸인지는 주소가 정한다.</text>
+</svg>

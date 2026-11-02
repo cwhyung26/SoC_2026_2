@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="770" viewBox="0 0 1300 770">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .phase { font-size: 15px; font-weight: 700; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .sig { font-family: Consolas, 'Courier New', monospace; font-size: 15px; font-weight: 700; fill: #17233c; }
+    .val { font-family: Consolas, 'Courier New', monospace; font-size: 14px; font-weight: 700; fill: #17233c; }
+    .wave { fill: none; stroke: #17233c; stroke-width: 2.2; }
+    .idle { fill: none; stroke: #a8b0bc; stroke-width: 2; }
+    .hexR { fill: #def3f6; stroke: #13889c; stroke-width: 2; }
+    .hexW { fill: #fdebd5; stroke: #c96a12; stroke-width: 2; }
+    .hexP { fill: #e7f5ea; stroke: #238636; stroke-width: 2; }
+    .brk { fill: #ffffff; }
+    .rowR { fill: #13889c; fill-opacity: 0.05; }
+    .rowW { fill: #c96a12; fill-opacity: 0.05; }
+    .rowP { fill: #238636; fill-opacity: 0.05; }
+  </style>
+
+  <rect width="1300" height="770" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">캡처 1에서 기대하는 파형 — 프로그램 한 바퀴</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">ILA 캡처(그림 3-15)와 나란히 놓고 읽는다. 시간축은 비율이 아니며, READY 신호는 생략했다.</text>
+
+  <!-- row bands -->
+  <rect x="30" y="114" width="1240" height="182" class="rowR"/>
+  <rect x="30" y="308" width="1240" height="228" class="rowW"/>
+  <rect x="30" y="548" width="1240" height="92" class="rowP"/>
+
+  <!-- phase labels -->
+  <text x="300" y="104" text-anchor="middle" class="phase" fill="#0f6f80">① 읽기 +0x8</text>
+  <text x="465" y="104" text-anchor="middle" class="phase" fill="#0f6f80">② 읽기 +0xC</text>
+  <text x="640" y="104" text-anchor="middle" class="phase" fill="#a05d0c">③ 쓰기 +0x0</text>
+  <text x="870" y="104" text-anchor="middle" class="phase" fill="#a05d0c">④ 쓰기 +0x4</text>
+  <text x="1130" y="104" text-anchor="middle" class="phase" fill="#8794a8">printf · usleep</text>
+
+  <!-- signal names -->
+  <text x="45" y="145" class="sig">ARVALID</text>
+  <text x="45" y="191" class="sig">ARADDR</text>
+  <text x="45" y="237" class="sig">RVALID</text>
+  <text x="45" y="283" class="sig">RDATA</text>
+  <text x="45" y="339" class="sig">AWVALID</text>
+  <text x="45" y="385" class="sig">AWADDR</text>
+  <text x="45" y="431" class="sig">WVALID</text>
+  <text x="45" y="477" class="sig">WDATA</text>
+  <text x="45" y="523" class="sig">BVALID</text>
+  <text x="45" y="579" class="sig">led4</text>
+  <text x="45" y="625" class="sig">led3</text>
+
+  <!-- 1-bit signals -->
+  <path d="M220 150 H260 V128 H290 V150 H420 V128 H450 V150 H1260" class="wave"/>
+  <path d="M220 242 H320 V220 H350 V242 H480 V220 H510 V242 H1260" class="wave"/>
+  <path d="M220 344 H590 V322 H620 V344 H820 V322 H850 V344 H1260" class="wave"/>
+  <path d="M220 436 H590 V414 H620 V436 H820 V414 H850 V436 H1260" class="wave"/>
+  <path d="M220 528 H650 V506 H680 V528 H880 V506 H910 V528 H1260" class="wave"/>
+
+  <!-- buses -->
+  <path d="M220 185 H1260" class="idle"/>
+  <path d="M232 185 L238 174 H312 L318 185 L312 196 H238 Z" class="hexR"/><text x="275" y="190" text-anchor="middle" class="val" font-size="13">43C00008</text>
+  <path d="M396 185 L402 174 H468 L474 185 L468 196 H402 Z" class="hexR"/><text x="435" y="190" text-anchor="middle" class="val" font-size="13">43C0000C</text>
+
+  <path d="M220 277 H1260" class="idle"/>
+  <path d="M315 277 L321 266 H349 L355 277 L349 288 H321 Z" class="hexR"/><text x="335" y="282" text-anchor="middle" class="val">5</text>
+  <path d="M475 277 L481 266 H509 L515 277 L509 288 H481 Z" class="hexR"/><text x="495" y="282" text-anchor="middle" class="val">1</text>
+
+  <path d="M220 379 H1260" class="idle"/>
+  <path d="M562 379 L568 368 H642 L648 379 L642 390 H568 Z" class="hexW"/><text x="605" y="384" text-anchor="middle" class="val" font-size="13">43C00000</text>
+  <path d="M792 379 L798 368 H872 L878 379 L872 390 H798 Z" class="hexW"/><text x="835" y="384" text-anchor="middle" class="val" font-size="13">43C00004</text>
+
+  <path d="M220 471 H1260" class="idle"/>
+  <path d="M585 471 L591 460 H619 L625 471 L619 482 H591 Z" class="hexW"/><text x="605" y="476" text-anchor="middle" class="val">5</text>
+  <path d="M815 471 L821 460 H849 L855 471 L849 482 H821 Z" class="hexW"/><text x="835" y="476" text-anchor="middle" class="val">1</text>
+
+  <path d="M220 562 H614 L620 573 L614 584 H220 Z" class="hexP" fill="#f4f6fa"/><text x="315" y="578" text-anchor="middle" class="val">3 (이전 값)</text>
+  <path d="M620 573 L626 562 H1260 V584 H626 Z" class="hexP"/><text x="940" y="578" text-anchor="middle" class="val">5</text>
+  <path d="M220 608 H844 L850 619 L844 630 H220 Z" class="hexP" fill="#f4f6fa"/><text x="315" y="624" text-anchor="middle" class="val">0 (이전 값)</text>
+  <path d="M850 619 L856 608 H1260 V630 H856 Z" class="hexP"/><text x="1050" y="624" text-anchor="middle" class="val">1</text>
+
+  <!-- time breaks -->
+  <rect x="378" y="112" width="14" height="530" class="brk"/>
+  <rect x="538" y="112" width="14" height="530" class="brk"/>
+  <rect x="738" y="112" width="14" height="530" class="brk"/>
+  <rect x="958" y="112" width="14" height="530" class="brk"/>
+  <text x="385" y="660" text-anchor="middle" class="small">≈</text>
+  <text x="545" y="660" text-anchor="middle" class="small">≈</text>
+  <text x="745" y="660" text-anchor="middle" class="small">≈</text>
+  <text x="965" y="660" text-anchor="middle" class="small">≈</text>
+
+  <!-- trigger -->
+  <path d="M260 112 V642" stroke="#c63838" stroke-width="2.5"/>
+  <text x="260" y="660" text-anchor="middle" class="small" fill="#c63838">트리거</text>
+
+  <!-- write -> pin markers -->
+  <path d="M620 322 V562" stroke="#c96a12" stroke-width="2" stroke-dasharray="5 4"/>
+  <path d="M850 322 V608" stroke="#c96a12" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="628" y="546" class="small" fill="#a05d0c">AW·W가 받아들여지는 클럭 → slv_reg0 → led4</text>
+
+  <!-- notes -->
+  <rect x="30" y="680" width="1240" height="76" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="708" class="body">예시 값: 스위치 = 0101(0x5), BTN0만 누름 = 0x1, 직전 바퀴의 led4 = 0x3. 주소는 PS가 내보낸 32비트 그대로이고, 끝 자리(8, C, 0, 4)가 오프셋이다.</text>
+  <text x="50" y="734" class="body">≈ 표시는 생략한 구간이다. 동작 사이 실제 간격과, AWVALID부터 led4가 바뀌기까지의 클럭 수는 캡처에서 직접 센다(3장 과제 2).</text>
+</svg>

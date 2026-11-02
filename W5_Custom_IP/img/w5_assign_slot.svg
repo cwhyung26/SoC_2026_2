@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="620" viewBox="0 0 1300 620">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 19px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13.5px; fill: #24324a; }
+    .panel { fill: #fbfcfd; stroke: #a7bad0; stroke-width: 2; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.2; }
+    .tmpl { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.2; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 3; }
+    .opt { fill: #ffffff; stroke: #bd7711; stroke-width: 1.5; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.2; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 4; marker-end: url(#g); }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+  </style>
+  <defs>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#31824b"/></marker>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+  </defs>
+
+  <rect width="1300" height="620" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">AXI GPIO로 해도 되지 않나? — assign 자리의 차이</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">PS가 하는 일은 둘 다 Xil_Out32 한 줄이다. 그 값이 핀에 닿기 전에 무엇을 거치느냐가 다르다.</text>
+
+  <!-- left panel -->
+  <rect x="30" y="95" width="440" height="430" rx="16" class="panel"/>
+  <text x="250" y="130" text-anchor="middle" class="head">AXI GPIO (4주차)</text>
+  <rect x="60" y="160" width="110" height="70" rx="10" class="ps"/>
+  <text x="115" y="192" text-anchor="middle" class="label">PS</text>
+  <text x="115" y="214" text-anchor="middle" class="mono">Xil_Out32</text>
+  <rect x="215" y="160" width="120" height="70" rx="10" class="tmpl"/>
+  <text x="275" y="192" text-anchor="middle" class="label">GPIO2_DATA</text>
+  <text x="275" y="214" text-anchor="middle" class="small">레지스터</text>
+  <rect x="370" y="160" width="80" height="70" rx="10" class="board"/>
+  <text x="410" y="200" text-anchor="middle" class="label">LED</text>
+  <path d="M170 195 H211" class="bus"/>
+  <path d="M335 195 H366" class="wr"/>
+  <text x="350" y="252" text-anchor="middle" class="small">그대로 연결</text>
+  <rect x="60" y="290" width="390" height="100" rx="10" fill="#f4f6fa" stroke="#c3cbd6" stroke-width="1.5"/>
+  <text x="255" y="325" text-anchor="middle" class="body">레지스터 값 = 핀 값</text>
+  <text x="255" y="352" text-anchor="middle" class="body">설정만 하면 되고 드라이버(XGpio)도 있다</text>
+  <text x="255" y="376" text-anchor="middle" class="small">할 수 있는 일은 이것뿐이다</text>
+  <text x="250" y="440" text-anchor="middle" class="label" fill="#2e69a3">입출력만이라면 이쪽이 더 편하다</text>
+
+  <!-- right panel -->
+  <rect x="500" y="95" width="770" height="430" rx="16" class="panel"/>
+  <text x="885" y="130" text-anchor="middle" class="head">my_io (이번 주) → 6주차부터</text>
+  <rect x="530" y="160" width="110" height="70" rx="10" class="ps"/>
+  <text x="585" y="192" text-anchor="middle" class="label">PS</text>
+  <text x="585" y="214" text-anchor="middle" class="mono">Xil_Out32</text>
+  <rect x="680" y="160" width="110" height="70" rx="10" class="tmpl"/>
+  <text x="735" y="192" text-anchor="middle" class="label">slv_reg0</text>
+  <text x="735" y="214" text-anchor="middle" class="small">명령 · 설정값</text>
+  <path d="M640 195 H676" class="bus"/>
+
+  <rect x="830" y="150" width="300" height="355" rx="14" class="user"/>
+  <text x="980" y="182" text-anchor="middle" class="head">assign 자리</text>
+  <text x="980" y="204" text-anchor="middle" class="small">Add user logic here — 무엇이든 넣는다</text>
+  <rect x="850" y="222" width="260" height="78" rx="8" class="opt"/>
+  <text x="865" y="248" class="label">5주차 · 그대로 연결</text>
+  <text x="865" y="276" class="mono">led4 = slv_reg0[3:0];</text>
+  <rect x="850" y="312" width="260" height="88" rx="8" class="opt" stroke-width="2.5"/>
+  <text x="865" y="338" class="label">6주차 · PWM</text>
+  <text x="865" y="362" class="body">밝기 값 ↔ 카운터 비교</text>
+  <text x="865" y="384" class="body">→ 빠르게 켜고 끄기</text>
+  <rect x="850" y="412" width="260" height="78" rx="8" class="opt"/>
+  <text x="865" y="438" class="label">그 밖에</text>
+  <text x="865" y="464" class="body">카운터 · 계산 회로 · 필터 …</text>
+  <path d="M790 195 H826" class="wr"/>
+
+  <rect x="1160" y="160" width="90" height="70" rx="10" class="board"/>
+  <text x="1205" y="192" text-anchor="middle" class="label">핀</text>
+  <text x="1205" y="214" text-anchor="middle" class="small">LED 등</text>
+  <path d="M1130 195 H1156" class="wr"/>
+
+  <text x="660" y="300" class="body">PS는 "무엇을 하라"는</text>
+  <text x="660" y="322" class="body">값만 쓴다.</text>
+  <text x="660" y="356" class="body">실제 일은 내 Verilog가</text>
+  <text x="660" y="378" class="body">클럭마다 한다.</text>
+
+  <rect x="30" y="545" width="1240" height="50" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="650" y="576" text-anchor="middle" class="body">이번 주에 레지스터·핀·버스를 직접 이어 본 것은 다음 주에 이 자리에 회로를 넣기 위한 준비다</text>
+</svg>

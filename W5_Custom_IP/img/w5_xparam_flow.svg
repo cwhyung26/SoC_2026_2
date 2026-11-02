@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="600" viewBox="0 0 1300 600">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .viv { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.5; }
+    .vit { fill: #def3f6; stroke: #13889c; stroke-width: 2.5; }
+    .code { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .flow { fill: none; stroke: #65738a; stroke-width: 3; marker-end: url(#k); }
+    .bar { fill: #f4f6fa; stroke: #65738a; stroke-width: 2; }
+    .wcell { fill: #fdebd5; stroke: #c96a12; stroke-width: 2; }
+    .rcell { fill: #def3f6; stroke: #13889c; stroke-width: 2; }
+    .zoom { fill: none; stroke: #8794a8; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  </style>
+  <defs>
+    <marker id="k" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#65738a"/></marker>
+  </defs>
+
+  <rect width="1300" height="600" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">0x43c00000은 어디서 왔나 — 주소가 C 코드까지 오는 길</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">주소는 Vivado가 정하고, .xsa를 타고 Vitis로 넘어와 #define 한 줄이 된다. 우리는 이름만 쓴다.</text>
+
+  <!-- 1 Address Editor -->
+  <rect x="30" y="100" width="270" height="190" rx="14" class="viv"/>
+  <text x="165" y="132" text-anchor="middle" class="head">① Address Editor</text>
+  <text x="165" y="154" text-anchor="middle" class="small">2장 · Vivado가 주소를 배정</text>
+  <rect x="50" y="170" width="230" height="100" rx="8" class="code"/>
+  <text x="62" y="196" class="mono">my_io_0/S00_AXI</text>
+  <text x="62" y="222" class="mono">Base  0x43C0_0000</text>
+  <text x="62" y="248" class="mono">Range 64K</text>
+
+  <!-- 2 Export -->
+  <rect x="350" y="100" width="270" height="190" rx="14" class="viv"/>
+  <text x="485" y="132" text-anchor="middle" class="head">② Export Hardware</text>
+  <text x="485" y="154" text-anchor="middle" class="small">2장 · Include bitstream</text>
+  <rect x="370" y="170" width="230" height="100" rx="8" class="code"/>
+  <text x="485" y="206" text-anchor="middle" class="mono">design_1_wrapper.xsa</text>
+  <text x="485" y="236" text-anchor="middle" class="body">하드웨어 + 주소 정보</text>
+  <text x="485" y="256" text-anchor="middle" class="body">+ 비트스트림</text>
+
+  <!-- 3 Platform -->
+  <rect x="670" y="100" width="290" height="190" rx="14" class="vit"/>
+  <text x="815" y="132" text-anchor="middle" class="head">③ Platform Build</text>
+  <text x="815" y="154" text-anchor="middle" class="small">3장 · Vitis가 .xsa를 읽어 자동 생성</text>
+  <rect x="685" y="170" width="260" height="100" rx="8" class="code"/>
+  <text x="697" y="194" class="mono" font-size="13">xparameters.h</text>
+  <text x="697" y="220" class="mono" font-size="13" fill="#0f6f80">#define XPAR_MY_IO_0_BASEADDR</text>
+  <text x="930" y="244" text-anchor="end" class="mono" font-size="13" fill="#0f6f80">0x43c00000</text>
+
+  <!-- 4 C code -->
+  <rect x="1010" y="100" width="260" height="190" rx="14" class="vit"/>
+  <text x="1140" y="132" text-anchor="middle" class="head">④ C 코드</text>
+  <text x="1140" y="154" text-anchor="middle" class="small">3장 · 우리가 쓰는 것</text>
+  <rect x="1025" y="170" width="230" height="100" rx="8" class="code"/>
+  <text x="1037" y="196" class="mono" font-size="13">#define MY_IO_BASE</text>
+  <text x="1037" y="220" class="mono" font-size="13" fill="#0f6f80">XPAR_MY_IO_0_BASEADDR</text>
+  <text x="1140" y="254" text-anchor="middle" class="small">숫자를 직접 쓰지 않는다</text>
+
+  <path d="M300 195 H346" class="flow"/>
+  <path d="M620 195 H666" class="flow"/>
+  <path d="M960 195 H1006" class="flow"/>
+
+  <!-- address bar -->
+  <text x="650" y="338" text-anchor="middle" class="label">BASEADDR ~ HIGHADDR = my_io_0이 받은 주소 구간</text>
+  <path d="M150 352 V360 H1150 V352" fill="none" stroke="#65738a" stroke-width="1.8"/>
+  <text x="650" y="352" text-anchor="middle" class="small">0x43c0ffff − 0x43c00000 + 1 = 0x10000 = 64K (Address Editor의 Range)</text>
+  <rect x="150" y="370" width="1000" height="50" class="bar"/>
+  <rect x="150" y="370" width="60" height="50" fill="#fff0d7" stroke="#bd7711" stroke-width="2"/>
+  <text x="180" y="400" text-anchor="middle" class="small" fill="#a05d0c">16 B</text>
+  <text x="680" y="400" text-anchor="middle" class="body">나머지는 쓰지 않는다</text>
+  <text x="150" y="442" text-anchor="middle" class="mono" fill="#0f6f80">BASEADDR</text>
+  <text x="150" y="460" text-anchor="middle" class="mono">0x43c00000</text>
+  <text x="1150" y="442" text-anchor="middle" class="mono" fill="#0f6f80">HIGHADDR</text>
+  <text x="1150" y="460" text-anchor="middle" class="mono">0x43c0ffff</text>
+
+  <!-- zoom of the first 16 bytes -->
+  <path d="M150 420 L330 490" class="zoom"/>
+  <path d="M210 420 L1010 490" class="zoom"/>
+  <rect x="330" y="490" width="170" height="64" class="wcell"/>
+  <rect x="500" y="490" width="170" height="64" class="wcell"/>
+  <rect x="670" y="490" width="170" height="64" class="rcell"/>
+  <rect x="840" y="490" width="170" height="64" class="rcell"/>
+  <text x="415" y="516" text-anchor="middle" class="mono">+0x0 (0x43C0_0000)</text>
+  <text x="415" y="540" text-anchor="middle" class="label">led4 쓰기</text>
+  <text x="585" y="516" text-anchor="middle" class="mono">+0x4 (0x43C0_0004)</text>
+  <text x="585" y="540" text-anchor="middle" class="label">led3 쓰기</text>
+  <text x="755" y="516" text-anchor="middle" class="mono">+0x8 (0x43C0_0008)</text>
+  <text x="755" y="540" text-anchor="middle" class="label">sw4 읽기</text>
+  <text x="925" y="516" text-anchor="middle" class="mono">+0xC (0x43C0_000C)</text>
+  <text x="925" y="540" text-anchor="middle" class="label">btn2 읽기</text>
+  <text x="670" y="580" text-anchor="middle" class="small">앞 16바이트 = 1장에서 정한 레지스터 네 칸 (32비트 = 4바이트씩)</text>
+</svg>

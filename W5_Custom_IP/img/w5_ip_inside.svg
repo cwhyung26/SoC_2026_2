@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="640" viewBox="0 0 1300 640">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .body { font-size: 15px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #33425d; }
+    .tagB { font-size: 14px; font-weight: 700; fill: #2e69a3; }
+    .tagO { font-size: 14px; font-weight: 700; fill: #a05d0c; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .ipbox { fill: #fffdf8; stroke: #8a7550; stroke-width: 2.5; }
+    .tmpl { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.5; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 2.5; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.5; }
+    .row { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 5; marker-start: url(#gS); marker-end: url(#gE); }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .rd { fill: none; stroke: #13889c; stroke-width: 3; marker-end: url(#t); }
+  </style>
+  <defs>
+    <marker id="gE" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#31824b"/></marker>
+    <marker id="gS" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#31824b"/></marker>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#13889c"/></marker>
+  </defs>
+
+  <rect width="1300" height="640" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">AXI 슬레이브 IP 안의 두 부분</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">AXI GPIO도, 이번 주의 my_io도 구조는 같다. 우리가 손대는 곳은 ② 하나뿐이다.</text>
+
+  <!-- PS -->
+  <rect x="40" y="110" width="220" height="300" rx="14" class="ps"/>
+  <text x="150" y="145" text-anchor="middle" class="head">Zynq PS</text>
+  <text x="150" y="172" text-anchor="middle" class="body">Cortex-A9</text>
+  <rect x="62" y="195" width="176" height="74" rx="8" class="row"/>
+  <text x="150" y="222" text-anchor="middle" class="mono">Xil_Out32(</text>
+  <text x="150" y="246" text-anchor="middle" class="mono">BASE+0x8, v)</text>
+  <rect x="62" y="290" width="176" height="74" rx="8" class="row"/>
+  <text x="150" y="317" text-anchor="middle" class="mono">v = Xil_In32(</text>
+  <text x="150" y="341" text-anchor="middle" class="mono">BASE+0x0)</text>
+  <text x="150" y="392" text-anchor="middle" class="small">M_AXI_GP0 (마스터)</text>
+
+  <!-- bus -->
+  <path d="M268 262 H372" class="bus"/>
+  <text x="320" y="245" text-anchor="middle" class="head" fill="#31824b">AXI4-Lite</text>
+  <text x="320" y="288" text-anchor="middle" class="small">주소·데이터·응답</text>
+
+  <!-- IP -->
+  <rect x="380" y="95" width="610" height="345" rx="16" class="ipbox"/>
+  <text x="685" y="125" text-anchor="middle" class="head">AXI 슬레이브 IP (AXI GPIO 또는 my_io)</text>
+
+  <rect x="410" y="145" width="250" height="270" rx="12" class="tmpl"/>
+  <text x="535" y="180" text-anchor="middle" class="head">① 버스 처리</text>
+  <text x="535" y="215" text-anchor="middle" class="body">주소·데이터를 받는다</text>
+  <text x="535" y="243" text-anchor="middle" class="body">"받았다"고 응답한다</text>
+  <text x="535" y="271" text-anchor="middle" class="body">VALID·READY 핸드셰이크</text>
+  <text x="535" y="310" text-anchor="middle" class="small">AXI 규격을 지키는 부분이라</text>
+  <text x="535" y="330" text-anchor="middle" class="small">어느 IP나 거의 같다</text>
+  <rect x="440" y="360" width="190" height="34" rx="17" fill="#ffffff" stroke="#2e69a3" stroke-width="1.5"/>
+  <text x="535" y="382" text-anchor="middle" class="tagB">Vivado 템플릿이 만든다</text>
+
+  <rect x="710" y="145" width="250" height="270" rx="12" class="user"/>
+  <text x="835" y="180" text-anchor="middle" class="head">② 레지스터 ↔ 핀</text>
+  <text x="835" y="215" text-anchor="middle" class="body">쓴 값 → 레지스터에 저장</text>
+  <text x="835" y="243" text-anchor="middle" class="body">레지스터 → 출력 핀</text>
+  <text x="835" y="271" text-anchor="middle" class="body">읽기 → 입력 핀 값을 돌려줌</text>
+  <text x="835" y="310" text-anchor="middle" class="small">어느 주소를 어느 핀에</text>
+  <text x="835" y="330" text-anchor="middle" class="small">잇느냐가 IP마다 다르다</text>
+  <rect x="750" y="360" width="170" height="34" rx="17" fill="#ffffff" stroke="#bd7711" stroke-width="1.5"/>
+  <text x="835" y="382" text-anchor="middle" class="tagO">우리가 작성한다</text>
+
+  <path d="M660 225 H706" class="wr"/>
+  <path d="M710 300 H664" class="rd"/>
+
+  <!-- board -->
+  <rect x="1050" y="145" width="210" height="270" rx="12" class="board"/>
+  <text x="1155" y="180" text-anchor="middle" class="head">Board</text>
+  <rect x="1075" y="205" width="160" height="56" rx="8" class="row"/>
+  <text x="1155" y="230" text-anchor="middle" class="body">LED</text>
+  <text x="1155" y="251" text-anchor="middle" class="small">출력 핀</text>
+  <rect x="1075" y="272" width="160" height="56" rx="8" class="row"/>
+  <text x="1155" y="297" text-anchor="middle" class="body">스위치</text>
+  <text x="1155" y="318" text-anchor="middle" class="small">입력 핀</text>
+
+  <path d="M960 233 H1071" class="wr"/>
+  <path d="M1075 300 H964" class="rd"/>
+
+  <!-- comparison strip -->
+  <rect x="40" y="470" width="1220" height="135" rx="14" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="70" y="505" class="head">②를 만드는 방법만 다르다</text>
+  <rect x="70" y="522" width="190" height="32" rx="6" fill="#eaf4ff" stroke="#2e69a3" stroke-width="1.5"/>
+  <text x="165" y="544" text-anchor="middle" class="body">AXI GPIO (4주차)</text>
+  <text x="285" y="544" class="body">GUI에서 채널 폭·방향을 고른다 · 레지스터 맵은 Xilinx 문서(PG144)가 정한다</text>
+  <rect x="70" y="562" width="190" height="32" rx="6" fill="#fff0d7" stroke="#bd7711" stroke-width="1.5"/>
+  <text x="165" y="584" text-anchor="middle" class="body">my_io (이번 주)</text>
+  <text x="285" y="584" class="body">Verilog 몇 줄로 직접 잇는다 · 레지스터 맵은 내가 정한다</text>
+</svg>

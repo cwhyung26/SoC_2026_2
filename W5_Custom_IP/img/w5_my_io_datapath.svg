@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="720" viewBox="0 0 1300 720">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .ipbox { fill: #fffdf8; stroke: #8a7550; stroke-width: 2.5; }
+    .tmpl { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2; }
+    .reg { fill: #d7e8fb; stroke: #2e69a3; stroke-width: 1.8; }
+    .dead { fill: #f1f2f4; stroke: #a8b0bc; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 2.5; }
+    .mux { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.5; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.5; }
+    .cell { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 4; marker-end: url(#g); }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .rd { fill: none; stroke: #13889c; stroke-width: 3; marker-end: url(#t); }
+    .thin { fill: none; stroke: #2e69a3; stroke-width: 2; marker-end: url(#b); }
+  </style>
+  <defs>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#31824b"/></marker>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="t" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#13889c"/></marker>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2e69a3"/></marker>
+  </defs>
+
+  <rect width="1300" height="720" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">고친 뒤의 my_io — 쓰기 경로와 읽기 경로</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">쓰기는 레지스터를 거쳐 출력 핀으로, 읽기는 레지스터 대신 입력 핀 값을 돌려준다.</text>
+
+  <!-- PS -->
+  <rect x="30" y="230" width="150" height="250" rx="14" class="ps"/>
+  <text x="105" y="268" text-anchor="middle" class="head">PS</text>
+  <text x="105" y="296" text-anchor="middle" class="mono">Xil_Out32</text>
+  <text x="105" y="440" text-anchor="middle" class="mono">Xil_In32</text>
+
+  <!-- IP -->
+  <rect x="220" y="95" width="810" height="590" rx="16" class="ipbox"/>
+  <text x="245" y="126" class="head">my_io_v1_0_S00_AXI</text>
+  <text x="440" y="126" class="small">(고친 뒤)</text>
+
+  <!-- write section -->
+  <text x="245" y="160" class="label" fill="#a05d0c">쓰기 경로</text>
+  <rect x="245" y="175" width="190" height="120" rx="10" class="tmpl"/>
+  <text x="340" y="205" text-anchor="middle" class="label">쓰기 (템플릿)</text>
+  <text x="340" y="232" text-anchor="middle" class="mono">slv_reg_wren</text>
+  <text x="340" y="258" text-anchor="middle" class="body">axi_awaddr[3:2]로</text>
+  <text x="340" y="280" text-anchor="middle" class="body">칸을 고른다</text>
+  <path d="M180 260 H241" class="bus"/>
+  <text x="210" y="248" text-anchor="middle" class="small">AW·W</text>
+
+  <rect x="490" y="150" width="150" height="40" rx="6" class="reg"/>
+  <text x="565" y="176" text-anchor="middle" class="mono">slv_reg0</text>
+  <rect x="490" y="198" width="150" height="40" rx="6" class="reg"/>
+  <text x="565" y="224" text-anchor="middle" class="mono">slv_reg1</text>
+  <rect x="490" y="246" width="150" height="40" rx="6" class="dead"/>
+  <text x="565" y="272" text-anchor="middle" class="mono" fill="#8a94a3">slv_reg2</text>
+  <rect x="490" y="294" width="150" height="40" rx="6" class="dead"/>
+  <text x="565" y="320" text-anchor="middle" class="mono" fill="#8a94a3">slv_reg3</text>
+  <text x="565" y="356" text-anchor="middle" class="small">저장은 되지만 아무도 읽지 않는다</text>
+  <path d="M435 235 H486" class="wr"/>
+
+  <rect x="700" y="150" width="300" height="88" rx="10" class="user"/>
+  <text x="850" y="176" text-anchor="middle" class="label">③ assign</text>
+  <text x="850" y="200" text-anchor="middle" class="mono">led4 = slv_reg0[3:0]</text>
+  <text x="850" y="224" text-anchor="middle" class="mono">led3 = slv_reg1[2:0]</text>
+  <path d="M640 170 H696" class="wr"/>
+  <path d="M640 218 H696" class="wr"/>
+
+  <!-- divider -->
+  <path d="M245 380 H1005" stroke="#d5dbe3" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- read section -->
+  <text x="245" y="412" class="label" fill="#0f6f80">읽기 경로</text>
+  <polygon points="640,420 640,640 560,610 560,450" class="mux"/>
+  <text x="600" y="520" text-anchor="middle" class="label">MUX</text>
+  <text x="600" y="542" text-anchor="middle" class="small">reg_data</text>
+  <text x="600" y="558" text-anchor="middle" class="small">_out</text>
+  <path d="M600 660 V629" class="thin"/>
+  <text x="600" y="678" text-anchor="middle" class="mono">axi_araddr[3:2]</text>
+
+  <rect x="690" y="430" width="300" height="38" rx="6" class="tmpl"/>
+  <text x="705" y="455" class="mono">2'h0 : slv_reg0</text>
+  <rect x="690" y="478" width="300" height="38" rx="6" class="tmpl"/>
+  <text x="705" y="503" class="mono">2'h1 : slv_reg1</text>
+  <rect x="690" y="526" width="300" height="38" rx="6" class="user"/>
+  <text x="705" y="551" class="mono">2'h2 : {28'd0, sw4}</text>
+  <text x="975" y="551" text-anchor="end" class="small">②</text>
+  <rect x="690" y="574" width="300" height="38" rx="6" class="user"/>
+  <text x="705" y="599" class="mono">2'h3 : {30'd0, btn2}</text>
+  <text x="975" y="599" text-anchor="end" class="small">②</text>
+  <path d="M690 449 H644" class="thin"/>
+  <path d="M690 497 H644" class="thin"/>
+  <path d="M690 545 H644" class="rd"/>
+  <path d="M690 593 H644" class="rd"/>
+
+  <rect x="270" y="500" width="230" height="64" rx="10" class="tmpl"/>
+  <text x="385" y="527" text-anchor="middle" class="label">읽기 응답 (템플릿)</text>
+  <text x="385" y="550" text-anchor="middle" class="mono">→ S_AXI_RDATA</text>
+  <path d="M560 532 H504" class="rd"/>
+  <path d="M270 532 H225 V440 H184" class="bus"/>
+  <text x="240" y="490" text-anchor="middle" class="small">R</text>
+
+  <!-- board -->
+  <rect x="1070" y="95" width="200" height="590" rx="16" class="board"/>
+  <text x="1170" y="126" text-anchor="middle" class="head">Board</text>
+  <rect x="1085" y="150" width="170" height="40" rx="6" class="cell"/>
+  <text x="1170" y="176" text-anchor="middle" class="body">Shield LED ×4</text>
+  <rect x="1085" y="198" width="170" height="40" rx="6" class="cell"/>
+  <text x="1170" y="224" text-anchor="middle" class="body">RGB LED1</text>
+  <rect x="1085" y="526" width="170" height="40" rx="6" class="cell"/>
+  <text x="1170" y="552" text-anchor="middle" class="body">Shield 스위치 ×4</text>
+  <rect x="1085" y="574" width="170" height="40" rx="6" class="cell"/>
+  <text x="1170" y="600" text-anchor="middle" class="body">BTN0 · BTN1</text>
+
+  <path d="M1000 170 H1081" class="wr"/>
+  <path d="M1000 218 H1081" class="wr"/>
+  <text x="1040" y="160" text-anchor="middle" class="mono" font-size="12">led4</text>
+  <text x="1040" y="208" text-anchor="middle" class="mono" font-size="12">led3</text>
+  <path d="M1085 546 H994" class="rd"/>
+  <path d="M1085 594 H994" class="rd"/>
+  <text x="1040" y="536" text-anchor="middle" class="mono" font-size="12">sw4</text>
+  <text x="1040" y="584" text-anchor="middle" class="mono" font-size="12">btn2</text>
+</svg>
