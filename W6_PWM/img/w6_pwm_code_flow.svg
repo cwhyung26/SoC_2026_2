@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="660" viewBox="0 0 1300 660">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #24324a; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .code { fill: #ffffff; stroke: #a7bad0; stroke-width: 1.5; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 2; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2; }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .wave { fill: none; stroke: #c96a12; stroke-width: 2.5; }
+    .flat { fill: none; stroke: #a8b0bc; stroke-width: 2.5; }
+    .loop { fill: none; stroke: #7152a5; stroke-width: 2.5; stroke-dasharray: 7 5; marker-end: url(#p); }
+    .sep { stroke: #a7bad0; stroke-width: 1.5; stroke-dasharray: 6 5; }
+  </style>
+  <defs>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="p" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#7152a5"/></marker>
+  </defs>
+
+  <rect width="1300" height="660" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">pwm_test.c — C 한 줄이 회로의 무엇을 바꾸나</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">PERIOD = 50000. 왼쪽 코드가 쓰는 값이 my_pwm 안의 어디로 가서(가운데) 어떤 파형이 되는지(오른쪽).</text>
+
+  <text x="200" y="102" text-anchor="middle" class="head">C 코드 (PS)</text>
+  <text x="620" y="102" text-anchor="middle" class="head">my_pwm 안에서</text>
+  <text x="1060" y="102" text-anchor="middle" class="head">led4 파형</text>
+
+  <text x="30" y="132" class="label" fill="#526078">시작 — 한 번만</text>
+  <!-- row 1 -->
+  <rect x="30" y="142" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="173" class="mono">Xil_Out32(PWM_PERIOD, PERIOD);</text>
+  <path d="M370 168 H436" class="wr"/>
+  <rect x="440" y="142" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="164" class="mono">period = 50000</text>
+  <text x="456" y="184" class="small">카운터가 0 ~ 49999를 반복할 준비</text>
+  <path d="M880 168 H1240" class="flat"/><text x="1060" y="160" text-anchor="middle" class="small">아직 꺼짐</text>
+  <!-- row 2 -->
+  <rect x="30" y="204" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="235" class="mono">Xil_Out32(PWM_DUTY, 0);</text>
+  <path d="M370 230 H436" class="wr"/>
+  <rect x="440" y="204" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="226" class="mono">duty = 0</text>
+  <text x="456" y="246" class="small">비교 기준 0 — 켜질 일이 없다</text>
+  <path d="M880 230 H1240" class="flat"/><text x="1060" y="222" text-anchor="middle" class="small">아직 꺼짐</text>
+  <!-- row 3 -->
+  <rect x="30" y="266" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="297" class="mono">Xil_Out32(PWM_CTRL, 1);</text>
+  <path d="M370 292 H436" class="wr"/>
+  <rect x="440" y="266" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="288" class="mono">en = 1</text>
+  <text x="456" y="308" class="small">카운터가 세기 시작한다</text>
+  <path d="M880 292 H1240" class="flat"/><text x="1060" y="284" text-anchor="middle" class="small">카운터는 돌지만 duty = 0 → 꺼짐</text>
+
+  <path d="M30 336 H1270" class="sep"/>
+  <text x="30" y="362" class="label" fill="#526078">while (1) — DUTY만 바꾸고 sleep(1)</text>
+
+  <!-- loop rows -->
+  <rect x="30" y="372" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="403" class="mono">Xil_Out32(PWM_DUTY, PERIOD / 4);</text>
+  <path d="M370 398 H436" class="wr"/>
+  <rect x="440" y="372" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="394" class="mono">duty = 12500</text>
+  <text x="456" y="414" class="small">카운터 0 ~ 12499 동안 켜짐</text>
+  <path d="M880 418 V382 H910 V418 H1000 V382 H1030 V418 H1120 V382 H1150 V418 H1240" class="wave"/>
+  <text x="1255" y="404" class="small">25 %</text>
+
+  <rect x="30" y="434" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="465" class="mono">Xil_Out32(PWM_DUTY, PERIOD / 2);</text>
+  <path d="M370 460 H436" class="wr"/>
+  <rect x="440" y="434" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="456" class="mono">duty = 25000</text>
+  <text x="456" y="476" class="small">카운터 0 ~ 24999 동안 켜짐</text>
+  <path d="M880 480 V444 H940 V480 H1000 V444 H1060 V480 H1120 V444 H1180 V480 H1240" class="wave"/>
+  <text x="1255" y="466" class="small">50 %</text>
+
+  <rect x="30" y="496" width="340" height="52" rx="8" class="code"/>
+  <text x="44" y="527" class="mono">Xil_Out32(PWM_DUTY, PERIOD);</text>
+  <path d="M370 522 H436" class="wr"/>
+  <rect x="440" y="496" width="360" height="52" rx="8" class="user"/>
+  <text x="456" y="518" class="mono">duty = 50000</text>
+  <text x="456" y="538" class="small">카운터가 늘 duty보다 작다 → 계속 켜짐</text>
+  <path d="M880 542 V506 H1240" class="wave"/>
+  <text x="1255" y="528" class="small">100 %</text>
+
+  <path d="M822 540 C850 560, 850 380, 822 398" class="loop"/>
+  <text x="855" y="470" class="small" fill="#5b3f8f" transform="rotate(90 855 470)">1초마다 반복</text>
+
+  <rect x="30" y="572" width="1240" height="72" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="600" class="body">CPU는 Xil_Out32 한 번 쓰고 sleep(1)로 쉰다. 그 1초 동안 1000번의 깜빡임은 전부 my_pwm의 카운터와 비교기가 만든다.</text>
+  <text x="50" y="624" class="body">PERIOD는 처음에 한 번만 쓴다. 레지스터가 값을 기억하기 때문이다. while 안에서는 DUTY만 바꾼다.</text>
+</svg>

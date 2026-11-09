@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="560" viewBox="0 0 1300 560">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .sig { font-family: Consolas, 'Courier New', monospace; font-size: 15px; font-weight: 700; fill: #17233c; }
+    .val { font-family: Consolas, 'Courier New', monospace; font-size: 14px; font-weight: 700; fill: #17233c; }
+    .wave { fill: none; stroke: #c96a12; stroke-width: 2.6; }
+    .flat { fill: none; stroke: #17233c; stroke-width: 2.2; }
+    .idle { fill: none; stroke: #a8b0bc; stroke-width: 2; }
+    .rowP { fill: #c96a12; fill-opacity: 0.05; }
+    .rowB { fill: #31824b; fill-opacity: 0.05; }
+    .tick { stroke: #8794a8; stroke-width: 1.2; }
+    .meas { stroke: #526078; stroke-width: 1.6; }
+  </style>
+
+  <rect width="1300" height="560" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">캡처 1에서 기대하는 파형 — PERIOD 200, DUTY 50</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">트리거 ila_led4 Rising, Trigger position 512(가운데). 1024 샘플 = 약 20 µs 안에 펄스 다섯 개.</text>
+
+  <!-- sample axis: x = 200 + sample * 1000/1024 -->
+  <path d="M200 105 H1200" class="tick"/>
+  <path d="M200 99 V111 M395 99 V111 M591 99 V111 M786 99 V111 M981 99 V111 M1200 99 V111" class="tick"/>
+  <text x="200" y="94" text-anchor="middle" class="small">0</text><text x="395" y="94" text-anchor="middle" class="small">200</text>
+  <text x="591" y="94" text-anchor="middle" class="small">400</text><text x="786" y="94" text-anchor="middle" class="small">600</text>
+  <text x="981" y="94" text-anchor="middle" class="small">800</text><text x="1200" y="94" text-anchor="middle" class="small">1023</text>
+  <text x="1210" y="110" class="small">샘플</text>
+
+  <rect x="30" y="125" width="1240" height="120" class="rowP"/>
+  <rect x="30" y="260" width="1240" height="150" class="rowB"/>
+
+  <!-- ila_led4 : rises at 112, 312, 512, 712, 912 ; 50 samples high -->
+  <text x="45" y="192" class="sig">ila_led4</text>
+  <text x="45" y="214" class="small">(4비트, 1111 / 0000)</text>
+  <path d="M200 210 H309 V160 H358 V210 H505 V160 H554 V210 H700 V160 H749 V210 H895 V160 H944 V210 H1091 V160 H1140 V210 H1200" class="wave"/>
+
+  <!-- measurements -->
+  <path d="M700 232 H749" class="meas"/><path d="M700 226 V238 M749 226 V238" class="meas"/>
+  <text x="724" y="254" text-anchor="middle" class="small">50 샘플 = 1 µs (DUTY)</text>
+  <path d="M700 140 H895" class="meas"/><path d="M700 134 V146 M895 134 V146" class="meas"/>
+  <text x="797" y="134" text-anchor="middle" class="small">200 샘플 = 4 µs (PERIOD)</text>
+
+  <!-- bus rows -->
+  <text x="45" y="300" class="sig">AWVALID</text>
+  <path d="M200 305 H1200" class="flat"/>
+  <text x="45" y="350" class="sig">AWADDR</text>
+  <path d="M200 345 H1200" class="idle"/>
+  <text x="45" y="395" class="sig">WDATA</text>
+  <path d="M200 390 H1200" class="idle"/>
+  <text x="430" y="335" text-anchor="middle" class="small">sleep(1) 동안 버스는 조용하다 — PWM은 회로가 혼자 만든다</text>
+
+  <!-- trigger -->
+  <path d="M700 118 V412" stroke="#c63838" stroke-width="2.5"/>
+  <text x="700" y="430" text-anchor="middle" class="small" fill="#c63838">트리거 (샘플 512)</text>
+
+  <rect x="30" y="455" width="1240" height="88" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="482" class="body">펄스는 200샘플마다 하나, 각각 정확히 50샘플 동안 1이다. C 코드의 PERIOD = 200, DUTY = PERIOD / 4 = 50이 그대로 샘플 수가 된다.</text>
+  <text x="50" y="506" class="body">DUTY가 100(50 %)으로 바뀐 뒤 다시 잡으면 펄스 폭만 100샘플로 넓어지고, 펄스 간격(200샘플)은 그대로다.</text>
+  <text x="50" y="530" class="body">버스(아래 세 줄)는 이 20 µs 동안 아무 일도 하지 않는다. CPU는 sleep(1) 중이다.</text>
+</svg>

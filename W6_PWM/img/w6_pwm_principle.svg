@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="600" viewBox="0 0 1300 600">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .wave { fill: none; stroke: #c96a12; stroke-width: 3; }
+    .on { fill: #fdebd5; }
+    .grid { stroke: #d5dce6; stroke-width: 1.2; stroke-dasharray: 4 4; }
+    .dim { fill: none; stroke: #526078; stroke-width: 1.6; marker-start: url(#a); marker-end: url(#a); }
+  </style>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#526078"/></marker>
+  </defs>
+
+  <rect width="1300" height="600" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">PWM — 같은 주기, 다른 듀티 = 다른 밝기</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">핀은 1 아니면 0이다. 아주 빠르게 켜고 끄면 눈은 켜진 시간의 비율(듀티 ÷ 주기)만큼의 밝기로 느낀다.</text>
+
+  <!-- period guides -->
+  <path d="M220 96 V530" class="grid"/><path d="M420 96 V530" class="grid"/><path d="M620 96 V530" class="grid"/>
+  <path d="M820 96 V530" class="grid"/><path d="M1020 96 V530" class="grid"/>
+  <path d="M220 108 H420" class="dim"/><text x="320" y="100" text-anchor="middle" class="small">주기 (period) — 1 ms</text>
+
+  <!-- row 1 : 25 % -->
+  <text x="30" y="170" class="head">듀티 25 %</text>
+  <text x="30" y="194" class="mono" font-size="12">DUTY = PERIOD / 4</text>
+  <rect x="220" y="140" width="50" height="60" class="on"/><rect x="420" y="140" width="50" height="60" class="on"/>
+  <rect x="620" y="140" width="50" height="60" class="on"/><rect x="820" y="140" width="50" height="60" class="on"/>
+  <path d="M220 200 V140 H270 V200 H420 V140 H470 V200 H620 V140 H670 V200 H820 V140 H870 V200 H1020" class="wave"/>
+  <path d="M220 222 H270" class="dim"/><text x="245" y="242" text-anchor="middle" class="small">듀티</text>
+
+  <!-- row 2 : 50 % -->
+  <text x="30" y="320" class="head">듀티 50 %</text>
+  <text x="30" y="344" class="mono" font-size="12">DUTY = PERIOD / 2</text>
+  <rect x="220" y="290" width="100" height="60" class="on"/><rect x="420" y="290" width="100" height="60" class="on"/>
+  <rect x="620" y="290" width="100" height="60" class="on"/><rect x="820" y="290" width="100" height="60" class="on"/>
+  <path d="M220 350 V290 H320 V350 H420 V290 H520 V350 H620 V290 H720 V350 H820 V290 H920 V350 H1020" class="wave"/>
+
+  <!-- row 3 : 75 % -->
+  <text x="30" y="470" class="head">듀티 75 %</text>
+  <text x="30" y="494" class="mono" font-size="12">DUTY = PERIOD * 3 / 4</text>
+  <rect x="220" y="440" width="150" height="60" class="on"/><rect x="420" y="440" width="150" height="60" class="on"/>
+  <rect x="620" y="440" width="150" height="60" class="on"/><rect x="820" y="440" width="150" height="60" class="on"/>
+  <path d="M220 500 V440 H370 V500 H420 V440 H570 V500 H620 V440 H770 V500 H820 V440 H970 V500 H1020" class="wave"/>
+
+  <text x="200" y="145" text-anchor="end" class="small">1</text><text x="200" y="204" text-anchor="end" class="small">0</text>
+  <text x="200" y="295" text-anchor="end" class="small">1</text><text x="200" y="354" text-anchor="end" class="small">0</text>
+  <text x="200" y="445" text-anchor="end" class="small">1</text><text x="200" y="504" text-anchor="end" class="small">0</text>
+
+  <!-- brightness -->
+  <text x="1160" y="108" text-anchor="middle" class="label">눈이 느끼는 밝기</text>
+  <circle cx="1095" cy="170" r="24" fill="#f2c200" fill-opacity="0.25" stroke="#a07c00" stroke-width="2"/>
+  <rect x="1135" y="158" width="130" height="24" rx="4" fill="#f4f6fa" stroke="#a7bad0"/><rect x="1135" y="158" width="32" height="24" rx="4" fill="#f2c200"/>
+  <text x="1200" y="214" text-anchor="middle" class="small">25 %</text>
+  <circle cx="1095" cy="320" r="24" fill="#f2c200" fill-opacity="0.55" stroke="#a07c00" stroke-width="2"/>
+  <rect x="1135" y="308" width="130" height="24" rx="4" fill="#f4f6fa" stroke="#a7bad0"/><rect x="1135" y="308" width="65" height="24" rx="4" fill="#f2c200"/>
+  <text x="1200" y="364" text-anchor="middle" class="small">50 %</text>
+  <circle cx="1095" cy="470" r="24" fill="#f2c200" fill-opacity="0.85" stroke="#a07c00" stroke-width="2"/>
+  <rect x="1135" y="458" width="130" height="24" rx="4" fill="#f4f6fa" stroke="#a7bad0"/><rect x="1135" y="458" width="97" height="24" rx="4" fill="#f2c200"/>
+  <text x="1200" y="514" text-anchor="middle" class="small">75 %</text>
+
+  <rect x="30" y="545" width="1240" height="42" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="572" class="body">주황 칠한 부분이 LED가 켜진 시간이다. 주기(점선 간격)는 세 줄 모두 같고, 켜진 폭만 다르다. 1 kHz면 1초에 1000번 깜빡여서 눈에는 깜빡임이 보이지 않는다.</text>
+</svg>

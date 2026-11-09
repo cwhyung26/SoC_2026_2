@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="620" viewBox="0 0 1300 620">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .win { fill: #f1edff; stroke: #7152a5; stroke-width: 2.5; }
+    .wave { fill: none; stroke: #c96a12; stroke-width: 3; }
+    .faint { fill: none; stroke: #e0b98a; stroke-width: 2.5; }
+    .tick { stroke: #8794a8; stroke-width: 1.3; }
+  </style>
+
+  <rect width="1300" height="620" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">ILA 기록 창(약 20 µs)에 PWM이 들어오나</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">ILA는 1024 샘플 × 20 ns ≈ 20 µs만 기록한다. PWM 한 주기가 이보다 길면 파형 모양을 볼 수 없다.</text>
+
+  <!-- window -->
+  <rect x="250" y="95" width="800" height="430" rx="10" class="win" fill-opacity="0.55"/>
+  <text x="650" y="120" text-anchor="middle" class="head" fill="#5b3f8f">ILA가 한 번에 기록하는 창 — 1024 샘플 ≈ 20 µs</text>
+  <path d="M250 505 H1050" class="tick"/>
+  <path d="M250 498 V512 M410 498 V512 M570 498 V512 M730 498 V512 M890 498 V512 M1050 498 V512" class="tick"/>
+  <text x="250" y="545" text-anchor="middle" class="small">0</text><text x="410" y="545" text-anchor="middle" class="small">4 µs</text>
+  <text x="570" y="545" text-anchor="middle" class="small">8 µs</text><text x="730" y="545" text-anchor="middle" class="small">12 µs</text>
+  <text x="890" y="545" text-anchor="middle" class="small">16 µs</text><text x="1050" y="545" text-anchor="middle" class="small">20 µs</text>
+
+  <!-- A : PERIOD 50000 -->
+  <text x="30" y="180" class="head">PERIOD = 50000</text>
+  <text x="30" y="204" class="small">한 주기 1 ms = 1000 µs</text>
+  <text x="30" y="224" class="small">(창의 50배)</text>
+  <path d="M60 300 H1250" class="faint" stroke-dasharray="6 6"/>
+  <path d="M250 175 H1050" class="wave"/>
+  <text x="1060" y="180" class="small">창이 켜진 구간에 걸리면 → 계속 1</text>
+  <path d="M250 260 H1050" class="wave"/>
+  <text x="1060" y="265" class="small">꺼진 구간에 걸리면 → 계속 0</text>
+  <text x="650" y="225" text-anchor="middle" class="label" fill="#a05d0c">펄스 모양이 보이지 않는다</text>
+
+  <!-- B : PERIOD 200 -->
+  <text x="30" y="370" class="head">PERIOD = 200</text>
+  <text x="30" y="394" class="small">한 주기 4 µs</text>
+  <text x="30" y="414" class="small">DUTY = 50 (25 %)</text>
+  <path d="M250 450 V390 H290 V450 H410 V390 H450 V450 H570 V390 H610 V450 H730 V390 H770 V450 H890 V390 H930 V450 H1050" class="wave"/>
+  <path d="M410 470 H570" stroke="#526078" stroke-width="1.6"/><path d="M410 464 V476 M570 464 V476" stroke="#526078" stroke-width="1.6"/>
+  <text x="490" y="490" text-anchor="middle" class="small">200 샘플 = 4 µs</text>
+  <path d="M250 378 H290" stroke="#c96a12" stroke-width="1.6"/><path d="M250 372 V384 M290 372 V384" stroke="#c96a12" stroke-width="1.6"/>
+  <text x="270" y="366" text-anchor="middle" class="small" fill="#a05d0c">50</text>
+  <text x="1060" y="420" class="small">펄스 5개 — 폭을 셀 수 있다</text>
+
+  <rect x="30" y="565" width="1240" height="42" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="592" class="body">그래서 3장에서 ILA로 볼 때는 C 코드의 PERIOD를 50000 → 200으로 바꾼다. 250 kHz도 LED에는 문제없다. 눈에는 똑같이 밝기로만 보인다.</text>
+</svg>

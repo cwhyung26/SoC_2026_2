@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="640" viewBox="0 0 1300 640">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 13px; fill: #24324a; }
+    .tmpl { fill: #eaf4ff; stroke: #2e69a3; stroke-width: 2.5; }
+    .reg { fill: #ffffff; stroke: #2e69a3; stroke-width: 1.8; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 3; }
+    .blk { fill: #ffffff; stroke: #bd7711; stroke-width: 2; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 5; marker-end: url(#g); }
+    .sig { fill: none; stroke: #7152a5; stroke-width: 2.5; marker-end: url(#p); }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .tag { font-size: 14px; font-weight: 700; fill: #ffffff; }
+  </style>
+  <defs>
+    <marker id="g" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="12" refY="7" orient="auto"><path d="M0,0 L0,14 L14,7 z" fill="#31824b"/></marker>
+    <marker id="p" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#7152a5"/></marker>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+  </defs>
+
+  <rect width="1300" height="640" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">my_pwm_v1_0_S00_AXI.v 안 — 템플릿 + user logic ②</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">파란 부분은 템플릿 그대로, 주황 부분이 이번에 쓰는 Verilog다. (1)(2)(3)은 user logic 코드의 덩어리 번호와 같다.</text>
+
+  <path d="M30 300 H96" class="bus"/>
+  <text x="62" y="288" text-anchor="middle" class="small">AXI 쓰기</text>
+
+  <!-- template -->
+  <rect x="100" y="100" width="300" height="430" rx="14" class="tmpl"/>
+  <text x="250" y="132" text-anchor="middle" class="head">템플릿 (손대지 않음)</text>
+  <text x="250" y="156" text-anchor="middle" class="small">AXI 처리 + 쓰기 case</text>
+  <rect x="125" y="180" width="250" height="56" rx="8" class="reg"/>
+  <text x="140" y="214" class="mono">slv_reg0  ← +0x0</text>
+  <rect x="125" y="256" width="250" height="56" rx="8" class="reg"/>
+  <text x="140" y="290" class="mono">slv_reg1  ← +0x4</text>
+  <rect x="125" y="332" width="250" height="56" rx="8" class="reg"/>
+  <text x="140" y="366" class="mono">slv_reg2  ← +0x8</text>
+  <rect x="125" y="408" width="250" height="56" rx="8" class="reg" stroke-dasharray="5 4"/>
+  <text x="140" y="442" class="mono" fill="#8794a8">slv_reg3  ← +0xC (안 씀)</text>
+
+  <!-- user logic -->
+  <rect x="440" y="100" width="700" height="430" rx="14" class="user"/>
+  <text x="790" y="132" text-anchor="middle" class="head">user logic ② — Add user logic here</text>
+
+  <!-- (1) names -->
+  <rect x="465" y="170" width="220" height="300" rx="10" class="blk"/>
+  <circle cx="490" cy="190" r="13" fill="#bd7711"/><text x="490" y="195" text-anchor="middle" class="tag">1</text>
+  <text x="590" y="196" text-anchor="middle" class="label">이름 붙이기</text>
+  <text x="480" y="214" class="mono">wire en =</text><text x="510" y="230" class="mono">slv_reg0[0];</text>
+  <text x="480" y="290" class="mono">wire period =</text><text x="510" y="306" class="mono">slv_reg1[15:0];</text>
+  <text x="480" y="366" class="mono">wire duty =</text><text x="510" y="382" class="mono">slv_reg2[15:0];</text>
+  <path d="M375 208 H461" class="sig"/><path d="M375 284 H461" class="sig"/><path d="M375 360 H461" class="sig"/>
+
+  <!-- (2) counter -->
+  <rect x="730" y="170" width="200" height="140" rx="10" class="blk"/>
+  <circle cx="755" cy="190" r="13" fill="#bd7711"/><text x="755" y="195" text-anchor="middle" class="tag">2</text>
+  <text x="840" y="196" text-anchor="middle" class="label">카운터</text>
+  <text x="745" y="224" class="mono">reg [15:0] pwm_cnt;</text>
+  <text x="745" y="248" class="mono">en = 0      → 0</text>
+  <text x="745" y="268" class="mono">끝(period−1) → 0</text>
+  <text x="745" y="288" class="mono">아니면      → +1</text>
+
+  <!-- (3) compare -->
+  <rect x="730" y="340" width="200" height="130" rx="10" class="blk"/>
+  <circle cx="755" cy="360" r="13" fill="#bd7711"/><text x="755" y="365" text-anchor="middle" class="tag">3</text>
+  <text x="840" y="366" text-anchor="middle" class="label">비교기</text>
+  <text x="745" y="396" class="mono">en == 1 &amp;&amp;</text>
+  <text x="745" y="416" class="mono">pwm_cnt &lt; duty</text>
+  <text x="745" y="446" class="mono">? 4'b1111 : 4'b0000</text>
+
+  <path d="M685 230 H726" class="sig"/><text x="706" y="222" text-anchor="middle" class="small" fill="#5b3f8f">en</text>
+  <path d="M685 284 H726" class="sig"/><text x="706" y="276" text-anchor="middle" class="small" fill="#5b3f8f">period</text>
+  <path d="M685 400 H726" class="sig"/><text x="706" y="392" text-anchor="middle" class="small" fill="#5b3f8f">duty</text>
+  <path d="M700 230 V430 H726" class="sig"/>
+  <path d="M830 310 V336" class="wr"/><text x="842" y="328" class="mono" fill="#a05d0c">pwm_cnt</text>
+
+  <!-- output -->
+  <rect x="960" y="340" width="160" height="130" rx="10" class="blk"/>
+  <text x="1040" y="380" text-anchor="middle" class="label">assign led4</text>
+  <text x="1040" y="406" text-anchor="middle" class="mono">4비트 모두</text>
+  <text x="1040" y="426" text-anchor="middle" class="mono">같은 값</text>
+  <path d="M930 405 H956" class="wr"/>
+  <path d="M1120 405 H1206" class="wr"/>
+  <text x="1210" y="400" class="mono" font-size="15">led4[3:0]</text>
+  <text x="1210" y="422" class="small">① 포트</text>
+  <text x="1210" y="440" class="small">→ 핀</text>
+
+  <path d="M1000 240 L1060 240 L1060 180 L1080 180 L1080 240 L1140 240" fill="none" stroke="#c96a12" stroke-width="2.5"/>
+  <text x="1070" y="268" text-anchor="middle" class="small">PWM 파형</text>
+
+  <rect x="30" y="555" width="1240" height="68" rx="10" fill="#f8fafc" stroke="#a7bad0" stroke-width="1.5"/>
+  <text x="50" y="582" class="body">(1)은 새 회로가 아니라 선에 이름을 붙이는 것이다. 실제 회로는 (2) 16비트 카운터 하나와 (3) 비교기 하나뿐이다.</text>
+  <text x="50" y="606" class="body">5주차 my_io의 user logic은 assign 두 줄이었다. 이번에는 그 자리에 카운터와 비교기가 들어가서, 레지스터 값이 핀으로 바로 가지 않는다.</text>
+</svg>
