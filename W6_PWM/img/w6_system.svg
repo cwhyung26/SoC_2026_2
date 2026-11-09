@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="740" viewBox="0 0 1300 740">
+  <style>
+    text { font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #17233c; }
+    .sub { font-size: 15px; fill: #526078; }
+    .head { font-size: 18px; font-weight: 700; fill: #17233c; }
+    .label { font-size: 15px; font-weight: 700; fill: #24324a; }
+    .body { font-size: 14px; fill: #33425d; }
+    .small { font-size: 13px; fill: #526078; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 14px; fill: #24324a; }
+    .ps { fill: #f4f6fa; stroke: #65738a; stroke-width: 2.5; }
+    .ctl { fill: #ecf8ef; stroke: #31824b; stroke-width: 2.5; }
+    .rst { fill: #f4f6fa; stroke: #8794a8; stroke-width: 2; }
+    .user { fill: #fff0d7; stroke: #bd7711; stroke-width: 3; }
+    .port { fill: #ffffff; stroke: #65738a; stroke-width: 1.8; }
+    .board { fill: #e7f5ea; stroke: #238636; stroke-width: 2.5; }
+    .ila { fill: #f1edff; stroke: #7152a5; stroke-width: 2.5; }
+    .bus { fill: none; stroke: #31824b; stroke-width: 5; marker-start: url(#g); marker-end: url(#g); }
+    .wr { fill: none; stroke: #c96a12; stroke-width: 3; marker-end: url(#o); }
+    .tap { fill: none; stroke: #7152a5; stroke-width: 2.5; stroke-dasharray: 7 5; marker-end: url(#p); }
+    .clk { fill: none; stroke: #65738a; stroke-width: 2; stroke-dasharray: 7 5; marker-end: url(#k); }
+  </style>
+  <defs>
+    <marker id="g" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="12" refY="7" orient="auto-start-reverse"><path d="M0,0 L0,14 L14,7 z" fill="#31824b"/></marker>
+    <marker id="o" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c96a12"/></marker>
+    <marker id="p" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#7152a5"/></marker>
+    <marker id="k" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#65738a"/></marker>
+  </defs>
+
+  <rect width="1300" height="740" fill="#ffffff"/>
+  <text x="650" y="40" text-anchor="middle" class="title">제2장에서 완성할 하드웨어 — custom_pwm / design_1</text>
+  <text x="650" y="66" text-anchor="middle" class="sub">5주차와 같은 구조에서 my_io_0 자리에 my_pwm_0이 들어가고, 바깥 핀은 led4 하나뿐이다.</text>
+
+  <!-- PS -->
+  <rect x="30" y="110" width="230" height="420" rx="14" class="ps"/>
+  <text x="145" y="145" text-anchor="middle" class="head">processing_system7_0</text>
+  <text x="145" y="172" text-anchor="middle" class="body">Cortex-A9 · DDR · UART</text>
+  <text x="250" y="230" text-anchor="end" class="mono">M_AXI_GP0</text>
+  <text x="250" y="455" text-anchor="end" class="mono">FCLK_CLK0</text>
+  <text x="250" y="475" text-anchor="end" class="small">50 MHz</text>
+  <text x="250" y="505" text-anchor="end" class="mono">FCLK_RESET0_N</text>
+
+  <rect x="320" y="170" width="210" height="110" rx="12" class="ctl"/>
+  <text x="425" y="203" text-anchor="middle" class="label">ps7_0_axi_periph</text>
+  <text x="425" y="228" text-anchor="middle" class="body">AXI Interconnect</text>
+  <text x="425" y="254" text-anchor="middle" class="small">주소로 슬레이브를 고른다</text>
+
+  <rect x="320" y="410" width="210" height="100" rx="12" class="rst"/>
+  <text x="425" y="443" text-anchor="middle" class="label">rst_ps7_0_50M</text>
+  <text x="425" y="468" text-anchor="middle" class="body">Processor System Reset</text>
+  <text x="425" y="492" text-anchor="middle" class="small">peripheral_aresetn</text>
+
+  <path d="M262 225 H318" class="bus"/>
+  <path d="M532 225 H618" class="bus"/>
+  <text x="573" y="210" text-anchor="middle" class="small">M00_AXI</text>
+  <path d="M260 450 H316" class="clk"/>
+  <path d="M530 460 H590 V410 H616" class="clk"/>
+
+  <!-- my_pwm -->
+  <rect x="620" y="130" width="300" height="320" rx="14" class="user"/>
+  <text x="770" y="165" text-anchor="middle" class="head">my_pwm_0</text>
+  <text x="770" y="188" text-anchor="middle" class="small">1장에서 만든 IP</text>
+  <text x="632" y="230" class="mono">S00_AXI</text>
+  <rect x="645" y="250" width="185" height="110" rx="10" fill="#ffffff" stroke="#bd7711" stroke-width="1.8"/>
+  <text x="737" y="276" text-anchor="middle" class="mono" font-size="12">CTRL·PERIOD·DUTY</text>
+  <text x="737" y="304" text-anchor="middle" class="label">카운터 + 비교기</text>
+  <path d="M670 340 H700 V320 H720 V340 H760 V320 H780 V340 H810" fill="none" stroke="#c96a12" stroke-width="2"/>
+  <text x="910" y="300" text-anchor="end" class="mono">led4[3:0]</text>
+  <text x="632" y="415" class="mono" font-size="12">s00_axi_aresetn</text>
+  <text x="632" y="435" class="mono" font-size="12">s00_axi_aclk</text>
+
+  <path d="M920 300 H1001" class="wr"/>
+  <polygon points="1005,285 1070,285 1085,300 1070,315 1005,315" class="port"/>
+  <text x="1040" y="305" text-anchor="middle" class="mono">led4</text>
+  <text x="1045" y="270" text-anchor="middle" class="small">Make External</text>
+  <text x="962" y="290" text-anchor="middle" class="small" fill="#5b3f8f">ila_led4</text>
+  <path d="M1085 300 H1116" class="wr"/>
+
+  <rect x="1120" y="130" width="150" height="320" rx="14" class="board"/>
+  <text x="1195" y="163" text-anchor="middle" class="head">보드</text>
+  <text x="1195" y="250" text-anchor="middle" class="body">shield LED ×4</text>
+  <circle cx="1150" cy="290" r="10" fill="#f2c200" fill-opacity="0.6" stroke="#a07c00" stroke-width="2"/>
+  <circle cx="1180" cy="290" r="10" fill="#f2c200" fill-opacity="0.6" stroke="#a07c00" stroke-width="2"/>
+  <circle cx="1210" cy="290" r="10" fill="#f2c200" fill-opacity="0.6" stroke="#a07c00" stroke-width="2"/>
+  <circle cx="1240" cy="290" r="10" fill="#f2c200" fill-opacity="0.6" stroke="#a07c00" stroke-width="2"/>
+  <text x="1195" y="340" text-anchor="middle" class="small">XDC: led4 4핀</text>
+  <text x="1195" y="360" text-anchor="middle" class="small">(4·5주차와 같은 핀)</text>
+
+  <!-- ILA -->
+  <rect x="560" y="545" width="440" height="140" rx="14" class="ila"/>
+  <text x="780" y="578" text-anchor="middle" class="head">system_ila_0</text>
+  <text x="580" y="610" class="mono">SLOT_0_AXI</text>
+  <text x="700" y="610" class="body">← my_pwm_0 앞 AXI 버스 (주소 4비트)</text>
+  <text x="580" y="638" class="mono">probe0</text>
+  <text x="700" y="638" class="body">← ila_led4 (PWM 파형, 4비트)</text>
+  <text x="780" y="670" text-anchor="middle" class="small">1024 샘플 × 20 ns ≈ 20 µs를 한 번에 기록한다</text>
+
+  <circle cx="590" cy="225" r="5" fill="#7152a5"/>
+  <path d="M590 225 V541" class="tap"/>
+  <circle cx="960" cy="300" r="5" fill="#7152a5"/>
+  <path d="M960 300 V541" class="tap"/>
+  <path d="M260 450 H290 V720 H1030 V615 H1004" class="clk"/>
+  <text x="300" y="712" class="small">FCLK_CLK0 → my_pwm 카운터와 ILA가 같은 50 MHz 클럭을 쓴다</text>
+
+  <path d="M42 590 H88" class="bus"/><text x="100" y="595" class="body">AXI 버스</text>
+  <path d="M40 620 H90" class="wr"/><text x="100" y="625" class="body">PWM 출력</text>
+  <path d="M40 650 H90" class="tap"/><text x="100" y="655" class="body">Debug 표시 → ILA</text>
+</svg>
