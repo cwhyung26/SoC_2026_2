@@ -45,13 +45,13 @@
 
 <rect class="isr" x="276" y="44" width="122" height="46" rx="6"/>
 <text class="t" x="337" y="60">ISR</text>
-<text class="s" x="337" y="76">TickCount++ 만 한다</text>
+<text class="s" x="337" y="76">tick++ 만 한다</text>
 
 <line class="al" x1="398" y1="67" x2="428" y2="67"/>
 
 <rect class="job2" x="428" y="44" width="256" height="46" rx="6"/>
 <text class="t" x="556" y="60">main — 무엇이 &quot;때가 되었나&quot; 판단</text>
-<text class="s" x="556" y="76">(u32)(now - last) &gt;= 주기 ?</text>
+<text class="s" x="556" y="76">tick - t마지막 &gt;= 주기 ?</text>
 
 <text class="r" x="16" y="108">ISR 안에서는 printf도, LED 출력도 하지 않는다. 1 ms에 한 줄을 출력할 시간조차 없다.</text>
 
@@ -60,9 +60,9 @@
 <line class="gl" x1="130" y1="225" x2="660" y2="225"/>
 <line class="gl" x1="130" y1="265" x2="660" y2="265"/>
 
-<text class="lb" x="124" y="185">50 ms · SW→LED</text>
-<text class="lb" x="124" y="225">500 ms · RGB 토글</text>
-<text class="lb" x="124" y="265">1000 ms · 터미널</text>
+<text class="lb" x="124" y="185">50 ms · led4[0]</text>
+<text class="lb" x="124" y="225">500 ms · led4[1]</text>
+<text class="lb" x="124" y="265">1000 ms · led4[2]</text>
 
 <!-- 50 ms job marks -->
 <g class="job1">

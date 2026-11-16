@@ -1,4 +1,4 @@
-<svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+<svg width="700" height="266" viewBox="0 0 700 266" xmlns="http://www.w3.org/2000/svg">
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5"
         markerWidth="6" markerHeight="6" orient="auto">
@@ -29,7 +29,7 @@
 </style>
 </defs>
 
-<rect class="bg" x="0" y="0" width="700" height="300"/>
+<rect class="bg" x="0" y="0" width="700" height="266"/>
 
 <text class="h" x="16" y="24">스위치 변화가 ISR까지 가는 길</text>
 
@@ -49,8 +49,8 @@
 <!-- 2. axi gpio -->
 <rect class="ip" x="166" y="70" width="128" height="64" rx="6"/>
 <text class="t" x="230" y="86">axi_gpio_0 채널 1</text>
-<text class="s" x="230" y="102">IPISR에 pending 세움</text>
-<text class="s" x="230" y="117">(IPIER·GIER가 허용해야)</text>
+<text class="s" x="230" y="102">값이 바뀌면</text>
+<text class="s" x="230" y="117">pending = 1</text>
 
 <line class="al" x1="294" y1="102" x2="320" y2="102"/>
 
@@ -64,8 +64,8 @@
 <!-- 4. IRQ_F2P + GIC -->
 <rect class="ps" x="444" y="70" width="104" height="64" rx="6"/>
 <text class="t" x="496" y="86">IRQ_F2P[0:0]</text>
-<text class="s" x="496" y="102">→ GIC</text>
-<text class="s" x="496" y="117">(SPI로 접수)</text>
+<text class="s" x="496" y="102">PS의 입구</text>
+<text class="s" x="496" y="117">→ GIC</text>
 
 <line class="al" x1="548" y1="102" x2="572" y2="102"/>
 
@@ -76,11 +76,9 @@
 
 <!-- return data path -->
 <path class="alb" d="M622 128 L622 186 L230 186 L230 136"/>
-<text class="bl" x="426" y="176">ISR이 AXI4-Lite로 sw4 값을 읽고, IPISR의 pending을 clear</text>
+<text class="bl" x="426" y="176">ISR이 버스로 sw4 값을 읽고, pending을 지운다</text>
 
 <!-- notes -->
-<text class="sl" x="16" y="216">· 인터럽트 선(ip2intc_irpt)은 &quot;변했다&quot;는 사실 하나만 전달한다. 스위치 값은 실려 오지 않는다 — 값은 ISR이 AXI4-Lite로 읽는다.</text>
-<text class="sl" x="16" y="238">· pending을 clear하지 않으면 GIC가 같은 인터럽트를 계속 올려서 ISR만 반복되고 main은 영원히 돌아오지 못한다.</text>
-<text class="sl" x="16" y="260">· pending은 비트별이 아니라 채널 단위다. sw4 중 어느 비트가 바뀌어도 같은 CH1 pending 하나가 선다.</text>
-<text class="sl" x="16" y="282">· 값이 바뀔 때마다 — 올릴 때도, 내릴 때도 — 각각 인터럽트가 된다.</text>
+<text class="sl" x="16" y="222">· 인터럽트 선은 &quot;바뀌었다&quot;만 알린다. 스위치 값은 실려 오지 않는다 — ISR이 버스로 읽는다.</text>
+<text class="sl" x="16" y="246">· pending은 ISR이 지워야 내려간다. 안 지우면 ISR만 반복되고 main으로 돌아가지 못한다.</text>
 </svg>

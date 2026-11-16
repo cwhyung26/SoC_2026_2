@@ -32,7 +32,7 @@
 <rect class="bg" x="0" y="0" width="700" height="330"/>
 
 <!-- ============ panel 1 : polling ============ -->
-<text class="h" x="16" y="26">폴링 — 4주차 방식 (200 ms마다 스위치를 읽는다)</text>
+<text class="h" x="16" y="26">폴링 — 5주차 방식 (200 ms마다 스위치를 읽는다)</text>
 
 <!-- idle stretches -->
 <rect class="idle" x="116" y="58" width="94" height="26" rx="4"/>
@@ -75,7 +75,7 @@
 <text class="sl" x="90" y="146">스위치를 안 건드려도 CPU는 계속 읽는다. 짧은 변화는 두 읽기 사이에 지나가 버린다.</text>
 
 <!-- ============ panel 2 : interrupt ============ -->
-<text class="h" x="16" y="196">인터럽트 — 5주차 방식 (변화가 생긴 순간에만 CPU가 개입한다)</text>
+<text class="h" x="16" y="196">인터럽트 — 7주차 방식 (변화가 생긴 순간에만 CPU가 개입한다)</text>
 
 <rect class="work" x="90" y="228" width="176" height="26" rx="4"/>
 <rect class="work" x="286" y="228" width="334" height="26" rx="4"/>
