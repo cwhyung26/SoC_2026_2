@@ -1,47 +1,50 @@
-
 #include "xparameters.h"
-#include "xgpio.h"
+#include "xil_io.h"
 #include "xinterrupt_wrap.h"   /* XSetupInterruptSystem */
 #include "xil_printf.h"
 
-XGpio gpio;
+#define GPIO_BASE    XPAR_AXI_GPIO_0_BASEADDR   /* Address Editor 에서 본 axi_gpio_0 의 주소 */
 
-/* Shared between the ISR and main, so all three must be volatile. */
-volatile int flag  = 0;   /* ISR sets this to say "an interrupt happened" */
-volatile int count = 0;   /* 4-bit counter, 0..15 then wraps             */
-volatile int sw    = 0;   /* switch value at the moment of the change    */
+/* AXI GPIO 레지스터 맵 - 1장 1.10절 (PG144) */
+#define GPIO_DATA    (GPIO_BASE + 0x000)        /* 채널 1 = sw4  (읽기)            */
+#define GPIO2_DATA   (GPIO_BASE + 0x008)        /* 채널 2 = led4 (쓰기)            */
+#define GPIO_GIER    (GPIO_BASE + 0x11C)        /* bit 31 = IP 전체 인터럽트 허용  */
+#define GPIO_IPISR   (GPIO_BASE + 0x120)        /* bit 0  = 채널 1 pending         */
+#define GPIO_IPIER   (GPIO_BASE + 0x128)        /* bit 0  = 채널 1 인터럽트 허용   */
 
-/* Runs automatically whenever sw4 changes. Keep it this short. */
+/* ISR 과 main 이 함께 쓰므로 셋 다 volatile */
+volatile int flag  = 0;   /* 인터럽트가 생겼다는 표시 */
+volatile int count = 0;   /* 4비트 카운터, 0~15       */
+volatile int sw    = 0;   /* 그 순간의 스위치 값      */
+
+/* sw4 가 바뀔 때마다 하드웨어가 부른다. 짧게 끝낸다. */
 void sw_isr(void *ref)
 {
-    sw    = XGpio_DiscreteRead(&gpio, 1);   /* channel 1 = sw4 */
+    sw    = Xil_In32(GPIO_DATA);
     count = (count + 1) & 0xF;
     flag  = 1;
 
-    XGpio_InterruptClear(&gpio, XGPIO_IR_CH1_MASK);   /* must clear */
+    Xil_Out32(GPIO_IPISR, Xil_In32(GPIO_IPISR));   /* pending 지우기 - 꼭 한다 */
 }
 
 int main(void)
 {
-    XGpio_Config *cfg;
+    print("W7 LAB01: AXI GPIO interrupt start\n\r");
 
-    print("W5 LAB01: AXI GPIO interrupt start\n\r");
+    Xil_Out32(GPIO_IPISR, Xil_In32(GPIO_IPISR));   /* (1) 남아 있던 pending 지우기 */
 
-    XGpio_Initialize(&gpio, XPAR_AXI_GPIO_0_BASEADDR);
-    XGpio_SetDataDirection(&gpio, 1, 0xF);   /* channel 1: input  (1=input)  */
-    XGpio_SetDataDirection(&gpio, 2, 0x0);   /* channel 2: output (0=output) */
-
-    /* Connect sw_isr to the GIC, then open the two interrupt gates. */
-    cfg = XGpio_LookupConfig(XPAR_AXI_GPIO_0_BASEADDR);
-    XSetupInterruptSystem(&gpio, (void *)sw_isr, cfg->IntrId, cfg->IntrParent,
+    XSetupInterruptSystem(NULL, (void *)sw_isr,    /* (2) "이 인터럽트가 오면 sw_isr" */
+                          XPAR_AXI_GPIO_0_INTERRUPTS,
+                          XPAR_AXI_GPIO_0_INTERRUPT_PARENT,
                           XINTERRUPT_DEFAULT_PRIORITY);
-    XGpio_InterruptEnable(&gpio, XGPIO_IR_CH1_MASK);   /* channel 1 */
-    XGpio_InterruptGlobalEnable(&gpio);                /* whole IP  */
+
+    Xil_Out32(GPIO_IPIER, 0x1);                    /* (3) 채널 1 허용 (개별 문) */
+    Xil_Out32(GPIO_GIER,  0x80000000);             /* (4) IP 전체 허용 (대문)   */
 
     while (1) {
         if (flag == 1) {
             flag = 0;
-            XGpio_DiscreteWrite(&gpio, 2, count);   /* counter -> 4 LEDs */
+            Xil_Out32(GPIO2_DATA, count);          /* 카운터 -> LED 4개 */
             xil_printf("count = %2d, sw = %d\n\r", count, sw);
         }
     }

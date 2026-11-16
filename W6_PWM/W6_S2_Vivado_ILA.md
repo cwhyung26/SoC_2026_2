@@ -74,7 +74,7 @@
 > 2. `custom_pwm` 창 위쪽에 IP가 바뀌었다는 노란 띠가 뜨면 **`Report IP Status`** → `my_pwm_0` 체크 → **`Upgrade Selected`**.
 > 3. `Generate Output Products` 창은 `Generate`(또는 `Skip`). 블록 오른쪽에 `led4[3:0]`이 생긴다.
 >
-> 업그레이드 기록(`custom_pwm/ip_upgrade.log`)에 `Upgrade has added port 'led4'`가 남는다. **IP를 고치면 Re-Package → Upgrade** 순서가 한 묶음이라는 것을 기억해 둔다. 7주차에 IP를 다시 고칠 때도 같은 순서다.
+> 업그레이드 기록(`custom_pwm/ip_upgrade.log`)에 `Upgrade has added port 'led4'`가 남는다. **IP를 고치면 Re-Package → Upgrade** 순서가 한 묶음이라는 것을 기억해 둔다. 나중에 IP를 다시 고칠 때도 같은 순서다.
 
 ## 2.2 Run Connection Automation
 
